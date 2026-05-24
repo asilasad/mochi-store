@@ -85,9 +85,25 @@
   .problem{background:var(--pink-wash);}
   .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:36px;}
   .prob-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-  .prob-card .ic-img{width:100%;aspect-ratio:16/11;object-fit:cover;display:block;}
+  .prob-card .ic-art{width:100%;aspect-ratio:16/11;display:block;}
+  .prob-card .ic-art svg{width:100%;height:100%;display:block;}
   .prob-card .pc-body{padding:24px 26px 30px;}
   .prob-card h3{font-size:19px;margin-bottom:8px;}
+  .ic-art .kw-flinch{animation:mochiFlinch 2.9s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+  .ic-art .kw-drip{animation:mochiDrip 2.7s ease-in infinite;transform-box:fill-box;}
+  .ic-art .kw-fade{animation:mochiFade 2.7s ease-in-out infinite;}
+  .ic-art .kw-search{animation:mochiSearch 3.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+  .ic-art .kw-bob{animation:mochiBob 3.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+  .ic-art .kw-float{animation:mochiFloat 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+  .ic-art .kw-tear{animation:mochiTear 3.6s ease-in-out infinite 1s;transform-box:fill-box;transform-origin:center;}
+  @keyframes mochiFlinch{0%,55%,100%{transform:translateX(0) rotate(0deg)}63%{transform:translateX(-2.5px) rotate(-3deg)}71%{transform:translateX(2.5px) rotate(3deg)}79%{transform:translateX(-1.4px) rotate(-1.4deg)}87%{transform:translateX(0) rotate(0deg)}}
+  @keyframes mochiDrip{0%{transform:translateY(-3px);opacity:0}18%{opacity:1}72%{opacity:.95}100%{transform:translateY(22px);opacity:0}}
+  @keyframes mochiFade{0%,100%{opacity:.16}50%{opacity:.95}}
+  @keyframes mochiSearch{0%,100%{transform:translateX(-11px)}50%{transform:translateX(12px)}}
+  @keyframes mochiBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes mochiFloat{0%{transform:translate(0,0) scale(.45);opacity:0}22%{opacity:1}80%{opacity:.85}100%{transform:translate(var(--dx,14px),-50px) scale(1.05);opacity:0}}
+  @keyframes mochiTear{0%,26%{transform:translateY(-4px) scale(.3);opacity:0}44%{transform:translateY(0) scale(1);opacity:1}62%{opacity:1}100%{transform:translateY(24px) scale(.85);opacity:0}}
+  @media(prefers-reduced-motion:reduce){.ic-art *{animation:none!important;}}
   .prob-card p{font-size:14.5px;color:var(--ink-soft);}
   .prob-answer{background:var(--red);color:#fff;border-radius:var(--radius);padding:44px;text-align:center;}
   .prob-answer h3{font-size:clamp(24px,3vw,32px);font-weight:500;max-width:760px;margin:0 auto 10px;}
@@ -731,9 +747,79 @@ function homeView(){
         <p>every tinted lip product makes you pick a side. and the lips that need care most get locked out of colour completely.</p>
       </div>
       <div class="prob-grid">
-        <div class="prob-card"><img class="ic-img" src="images/problem-pigment.webp" alt="lips wearing heavy lipstick that has dried out and cracked"><div class="pc-body"><h3>pigment that punishes</h3><p>lipsticks and liquid lips give colour — then dry you out, feather, transfer and flake.</p></div></div>
-        <div class="prob-card"><img class="ic-img" src="images/problem-care.webp" alt="bare lips wearing a clear balm with no visible colour"><div class="pc-body"><h3>care you can’t see</h3><p>true balms look after your lips — but the “tint” is basically a rumour.</p></div></div>
-        <div class="prob-card"><img class="ic-img" src="images/problem-leftout.webp" alt="bare sensitive lips left out of colour entirely"><div class="pc-body"><h3>the lips left out</h3><p>sensitive, chapped, reactive lips? every cute viral product stings or peels.</p></div></div>
+        <div class="prob-card">
+          <div class="ic-art"><svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A cute mochi mascot wincing under a heavy, drying lipstick"><title>pigment that punishes</title>
+          <rect width="320" height="220" fill="#F3C7D5"/>
+          <g fill="#fff" opacity=".5"><circle cx="44" cy="48" r="5.5"/><circle cx="278" cy="152" r="6.5"/><circle cx="258" cy="36" r="3.6"/><circle cx="58" cy="176" r="4.4"/></g>
+          <ellipse cx="160" cy="187" rx="76" ry="13" fill="#43303A" opacity=".09"/>
+          <g class="kw-flinch">
+          <rect x="86" y="46" width="148" height="132" rx="52" fill="#FFF8F1"/>
+          <ellipse cx="118" cy="73" rx="21" ry="12" fill="#fff" opacity=".6"/>
+          <path d="M108 90 L132 84" stroke="#43303A" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M212 90 L188 84" stroke="#43303A" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M120 97 L135 106 L120 115" fill="none" stroke="#43303A" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M200 97 L185 106 L200 115" fill="none" stroke="#43303A" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <ellipse cx="112" cy="128" rx="12.5" ry="8.5" fill="#F2A9BE" opacity=".6"/>
+          <ellipse cx="208" cy="128" rx="12.5" ry="8.5" fill="#F2A9BE" opacity=".6"/>
+          <path d="M134 141 Q147 129 160 137 Q173 129 186 141 Q173 160 160 160 Q147 160 134 141 Z" fill="#BC3E59"/>
+          <path d="M150 138 L148 153" stroke="#7C2237" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M161 136 L163 156" stroke="#7C2237" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M174 139 L172 153" stroke="#7C2237" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+          <path class="kw-drip" d="M221 57 C229 70 229 81 221 84 C213 81 213 70 221 57 Z" fill="#9ECEE5"/>
+          </svg></div>
+          <div class="pc-body"><h3>pigment that punishes</h3><p>lipsticks and liquid lips give colour — then dry you out, feather, transfer and flake.</p></div>
+        </div>
+        <div class="prob-card">
+          <div class="ic-art"><svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A cute mochi mascot searching for a tint it cannot see"><title>care you can’t see</title>
+          <rect width="320" height="220" fill="#CDEAD9"/>
+          <g fill="#fff" opacity=".55"><circle cx="46" cy="50" r="5.5"/><circle cx="276" cy="150" r="6"/><circle cx="256" cy="38" r="3.6"/><circle cx="56" cy="176" r="4.4"/></g>
+          <ellipse cx="160" cy="187" rx="76" ry="13" fill="#43303A" opacity=".09"/>
+          <g>
+          <rect x="86" y="46" width="148" height="132" rx="52" fill="#FFF8F1"/>
+          <ellipse cx="116" cy="73" rx="20" ry="12" fill="#fff" opacity=".6"/>
+          <path d="M110 89 L134 89" stroke="#43303A" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M186 83 Q198 76 210 83" fill="none" stroke="#43303A" stroke-width="5.5" stroke-linecap="round"/>
+          <ellipse cx="123" cy="104" rx="9" ry="11" fill="#43303A"/><circle cx="126" cy="100" r="3.3" fill="#fff"/>
+          <ellipse cx="197" cy="104" rx="9" ry="11" fill="#43303A"/><circle cx="200" cy="100" r="3.3" fill="#fff"/>
+          <ellipse cx="112" cy="128" rx="12" ry="8" fill="#F2A9BE" opacity=".55"/>
+          <ellipse cx="208" cy="128" rx="12" ry="8" fill="#F2A9BE" opacity=".55"/>
+          <path class="kw-fade" d="M136 141 Q148 131 160 138 Q172 131 184 141 Q172 157 160 157 Q148 157 136 141 Z" fill="#E7849C"/>
+          <path d="M136 141 Q148 131 160 138 Q172 131 184 141 Q172 157 160 157 Q148 157 136 141 Z" fill="none" stroke="#C29DA3" stroke-width="2.4" stroke-dasharray="5 5" stroke-linecap="round"/>
+          </g>
+          <g class="kw-search">
+          <circle cx="198" cy="152" r="21" fill="#fff" opacity=".35"/>
+          <circle cx="198" cy="152" r="21" fill="none" stroke="#43303A" stroke-width="5"/>
+          <line x1="213" y1="167" x2="231" y2="185" stroke="#43303A" stroke-width="7.5" stroke-linecap="round"/>
+          <ellipse cx="190" cy="145" rx="6.5" ry="4.2" fill="#fff" opacity=".8"/>
+          </g>
+          </svg></div>
+          <div class="pc-body"><h3>care you can’t see</h3><p>true balms look after your lips — but the “tint” is basically a rumour.</p></div>
+        </div>
+        <div class="prob-card">
+          <div class="ic-art"><svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A cute mochi mascot watching colour drift out of reach"><title>the lips left out</title>
+          <rect width="320" height="220" fill="#D9CEEE"/>
+          <g fill="#fff" opacity=".5"><circle cx="44" cy="56" r="5"/><circle cx="58" cy="176" r="4.2"/><circle cx="276" cy="182" r="5"/></g>
+          <ellipse cx="160" cy="187" rx="76" ry="13" fill="#43303A" opacity=".09"/>
+          <g class="kw-bob">
+          <rect x="86" y="46" width="148" height="132" rx="52" fill="#FFF8F1"/>
+          <ellipse cx="116" cy="73" rx="20" ry="12" fill="#fff" opacity=".55"/>
+          <path d="M106 90 L130 84" stroke="#43303A" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M214 90 L190 84" stroke="#43303A" stroke-width="5.5" stroke-linecap="round"/>
+          <ellipse cx="127" cy="105" rx="9" ry="11" fill="#43303A"/><circle cx="125" cy="109" r="3" fill="#fff"/>
+          <ellipse cx="193" cy="105" rx="9" ry="11" fill="#43303A"/><circle cx="191" cy="109" r="3" fill="#fff"/>
+          <ellipse cx="113" cy="129" rx="12" ry="8" fill="#F2A9BE" opacity=".5"/>
+          <ellipse cx="207" cy="129" rx="12" ry="8" fill="#F2A9BE" opacity=".5"/>
+          <path d="M143 141 Q152 133 160 139 Q168 133 177 141 Q168 153 160 153 Q152 153 143 141 Z" fill="#E2A0B4"/>
+          <path class="kw-tear" d="M121 120 C125 127 125 133 121 135 C117 133 117 127 121 120 Z" fill="#9ECEE5"/>
+          </g>
+          <g class="kw-float" style="--dx:16px;animation-delay:0s"><path d="M236 116 Q238 108 240 116 Q248 118 240 120 Q238 128 236 120 Q228 118 236 116 Z" fill="#F2A9BE"/></g>
+          <g class="kw-float" style="--dx:24px;animation-delay:1.3s"><path d="M250 150 Q252 142 254 150 Q262 152 254 154 Q252 162 250 154 Q242 152 250 150 Z" fill="#F6C5A4"/></g>
+          <g class="kw-float" style="--dx:8px;animation-delay:2.5s"><path d="M214 98 Q216 90 218 98 Q226 100 218 102 Q216 110 214 102 Q206 100 214 98 Z" fill="#F6DC93"/></g>
+          <g class="kw-float" style="--dx:20px;animation-delay:0.7s"><path d="M258 112 Q260 104 262 112 Q270 114 262 116 Q260 124 258 116 Q250 114 258 112 Z" fill="#C7B6E6"/></g>
+          </svg></div>
+          <div class="pc-body"><h3>the lips left out</h3><p>sensitive, chapped, reactive lips? every cute viral product stings or peels.</p></div>
+        </div>
       </div>
       <div class="prob-answer">
         <div class="eyebrow" style="color:var(--pink-pale);">the mochi answer</div>
