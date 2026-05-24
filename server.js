@@ -33,6 +33,31 @@ const WELCOME_COUPON  = 'N4gqi492'; // 10% welcome coupon (promo code SQUISH10)
 const SUB_DISCOUNT    = 0.15; // subscribe & save — 15% off
 const SUB_INTERVAL    = { interval: 'week', interval_count: 8 }; // refill every 8 weeks
 
+/* Worldwide shipping — every country Stripe accepts as a shipping
+   destination. Stripe rejects a small set of sanctioned countries and
+   tiny territories from allowed_countries; those are intentionally
+   omitted. If Stripe ever rejects a code, checkout falls back to
+   SHIP_COUNTRIES_CORE so the bag can always be completed. */
+const SHIP_COUNTRIES = [
+  'AD','AE','AF','AG','AI','AL','AM','AO','AR','AT','AU','AW','AX','AZ',
+  'BA','BB','BD','BE','BF','BG','BH','BI','BJ','BL','BM','BN','BO','BQ','BR','BS','BT','BW','BY','BZ',
+  'CA','CD','CF','CG','CH','CI','CK','CL','CM','CN','CO','CR','CV','CW','CY','CZ',
+  'DE','DJ','DK','DM','DO','DZ','EC','EE','EG','EH','ER','ES','ET',
+  'FI','FJ','FK','FO','FR','GA','GB','GD','GE','GF','GG','GH','GI','GL','GM','GN','GP','GQ','GR','GT','GU','GW','GY',
+  'HK','HN','HR','HT','HU','ID','IE','IL','IM','IN','IQ','IS','IT','JE','JM','JO','JP',
+  'KE','KG','KH','KI','KM','KN','KR','KW','KY','KZ','LA','LB','LC','LI','LK','LR','LS','LT','LU','LV','LY',
+  'MA','MC','MD','ME','MF','MG','MK','ML','MM','MN','MO','MQ','MR','MS','MT','MU','MV','MW','MX','MY','MZ',
+  'NA','NC','NE','NG','NI','NL','NO','NP','NR','NU','NZ','OM',
+  'PA','PE','PF','PG','PH','PK','PL','PM','PN','PR','PS','PT','PY','QA','RE','RO','RS','RU','RW',
+  'SA','SB','SC','SE','SG','SH','SI','SJ','SK','SL','SM','SN','SO','SR','SS','ST','SV','SX','SZ',
+  'TC','TD','TG','TH','TJ','TK','TL','TM','TN','TO','TR','TT','TV','TW','TZ',
+  'UA','UG','US','UY','UZ','VA','VC','VE','VG','VN','VU','WF','WS','YE','YT','ZA','ZM','ZW'
+];
+const SHIP_COUNTRIES_CORE = [
+  'US','CA','GB','AU','IE','NZ','FR','DE','ES','IT','NL','BE','SE','NO','DK','FI',
+  'PT','AT','CH','PL','CZ','JP','SG','HK','KR','AE','SA','MX','BR','ZA','IN'
+];
+
 /* ============================================================
    Order-confirmation email — sent via Resend (https://resend.com).
    Needs this environment variable on the host:
@@ -50,6 +75,20 @@ function orderConfirmationEmail(order, baseUrl) {
       '</td><td style="padding:7px 0;font-size:15px;color:#43303A;text-align:right;font-weight:bold;">' + m(i.amount) + '</td></tr>';
   }).join('');
   const firstName = order.name ? (' ' + String(order.name).split(' ')[0]) : '';
+  const esc = function (s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+  const sh = order.shipping;
+  const shipBlock = sh ? (
+    '<table width="100%" cellpadding="0" cellspacing="0" style="margin:18px 0 0;background:#EAF5EE;border-radius:14px;"><tr><td style="padding:16px 20px;">' +
+    '<p style="margin:0 0 7px;font-size:12px;letter-spacing:1px;color:#3B8C5A;font-weight:bold;">SHIPPING TO</p>' +
+    '<p style="margin:0;font-size:14px;color:#43303A;line-height:1.65;">' +
+      [sh.name, sh.line1, sh.line2,
+       [sh.city, sh.state, sh.postalCode].filter(Boolean).join(', '),
+       sh.country].filter(Boolean).map(esc).join('<br>') +
+    '</p></td></tr></table>'
+  ) : '';
   const html =
 '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#FCF7F0;">' +
 '<table width="100%" cellpadding="0" cellspacing="0" style="background:#FCF7F0;padding:24px 0;"><tr><td align="center">' +
@@ -65,7 +104,8 @@ function orderConfirmationEmail(order, baseUrl) {
 '<tr><td style="padding:4px 0;font-size:14px;color:#7C6670;">shipping</td><td style="padding:4px 0;font-size:14px;color:#7C6670;text-align:right;">' + (order.amountShipping ? m(order.amountShipping) : 'free') + '</td></tr>' +
 '<tr><td style="padding:10px 0 0;border-top:2px solid #43303A;font-size:17px;color:#E0455A;font-weight:bold;">total paid</td><td style="padding:10px 0 0;border-top:2px solid #43303A;font-size:17px;color:#E0455A;font-weight:bold;text-align:right;">' + m(order.amountTotal) + '</td></tr>' +
 '</table></td></tr></table>' +
-'<p style="margin:20px 0 0;font-size:14px;color:#7C6670;line-height:1.6;">we will send tracking as soon as it ships, usually within 1-2 business days.</p>' +
+shipBlock +
+'<p style="margin:20px 0 0;font-size:14px;color:#7C6670;line-height:1.6;">we will email tracking as soon as your order ships, usually within 1-2 business days. delivery takes about 1-2 business days within the US and up to 2 weeks for the rest of the world.</p>' +
 '<table cellpadding="0" cellspacing="0" style="margin:22px 0 4px;"><tr><td style="border-radius:999px;background:#E0455A;"><a href="' + baseUrl + '" style="display:inline-block;padding:13px 32px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">shop more mochi</a></td></tr></table>' +
 '</td></tr>' +
 '<tr><td style="padding:22px 34px;background:#FCF7F0;font-family:Arial,sans-serif;text-align:center;">' +
@@ -209,15 +249,15 @@ app.post('/api/create-checkout', async (req, res) => {
       mode: hasSub ? 'subscription' : 'payment',
       line_items,
       billing_address_collection: 'auto',
-      shipping_address_collection: { allowed_countries: ['US', 'CA', 'GB', 'AU'] },
+      shipping_address_collection: { allowed_countries: SHIP_COUNTRIES },
       shipping_options: [{
         shipping_rate_data: {
           type: 'fixed_amount',
           fixed_amount: { amount: shipFee, currency: 'usd' },
           display_name: shipFee === 0 ? 'Free shipping' : 'Standard shipping',
           delivery_estimate: {
-            minimum: { unit: 'business_day', value: 2 },
-            maximum: { unit: 'business_day', value: 5 }
+            minimum: { unit: 'business_day', value: 1 },
+            maximum: { unit: 'business_day', value: 14 }
           }
         }
       }],
@@ -233,7 +273,19 @@ app.post('/api/create-checkout', async (req, res) => {
     } else {
       sessionParams.allow_promotion_codes = true;             // otherwise the customer can type a code
     }
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    let session;
+    try {
+      session = await stripe.checkout.sessions.create(sessionParams);
+    } catch (e) {
+      // If Stripe ever rejects a shipping country code, retry once with the
+      // core country list so a customer can always complete checkout.
+      if (/allowed_countries|country/i.test((e && e.message) || '')) {
+        sessionParams.shipping_address_collection = { allowed_countries: SHIP_COUNTRIES_CORE };
+        session = await stripe.checkout.sessions.create(sessionParams);
+      } else {
+        throw e;
+      }
+    }
 
     res.json({ url: session.url });
   } catch (err) {
@@ -259,16 +311,36 @@ app.get('/api/order', async (req, res) => {
     const pi = session.payment_intent;
     if (pi && pi.latest_charge && pi.latest_charge.receipt_url) receiptUrl = pi.latest_charge.receipt_url;
     else if (session.invoice && session.invoice.hosted_invoice_url) receiptUrl = session.invoice.hosted_invoice_url;
+
+    /* delivery address the customer entered on Stripe's checkout page */
+    const shipDetails = (session.collected_information && session.collected_information.shipping_details)
+      || session.shipping_details || null;
+    let shipping = null;
+    if (shipDetails && shipDetails.address) {
+      const a = shipDetails.address;
+      shipping = {
+        name: shipDetails.name || (session.customer_details && session.customer_details.name) || '',
+        line1: a.line1 || '',
+        line2: a.line2 || '',
+        city: a.city || '',
+        state: a.state || '',
+        postalCode: a.postal_code || '',
+        country: a.country || ''
+      };
+    }
+
     const order = {
       id: session.id,
       paid: session.payment_status === 'paid',
       email: (session.customer_details && session.customer_details.email) || '',
       name: (session.customer_details && session.customer_details.name) || '',
+      phone: (session.customer_details && session.customer_details.phone) || '',
       currency: (session.currency || 'usd').toUpperCase(),
       amountTotal: session.amount_total || 0,
       amountSubtotal: session.amount_subtotal || 0,
       amountShipping: (session.total_details && session.total_details.amount_shipping) || 0,
       items: items,
+      shipping: shipping,
       receiptUrl: receiptUrl,
       created: session.created || Math.floor(Date.now() / 1000)
     };

@@ -415,6 +415,10 @@
   .rcp-table .rcp-line td{color:var(--ink-soft);border-top:1px dashed rgba(67,48,58,.16);font-size:13px;}
   .rcp-table .rcp-total td{border-top:2px solid var(--ink);padding-top:11px;font-family:'Fredoka';font-weight:700;font-size:16px;color:var(--red);}
   .rcp-foot{margin-top:16px;padding-top:14px;border-top:2px dashed rgba(67,48,58,.18);font-size:11.5px;color:var(--ink-soft);text-align:center;line-height:1.7;}
+  .rcp-ship{margin-bottom:12px;padding:11px 14px;background:var(--mint-pale);border-radius:12px;}
+  .rcp-ship-h{font-family:'Fredoka';font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
+  .rcp-ship-b{font-size:13px;color:var(--ink);line-height:1.6;}
+  .deliv-note{max-width:430px;margin:14px auto 0;font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.6;}
   @media print{
     body{background:#fff;}
     body *{visibility:hidden;}
@@ -1117,7 +1121,7 @@ function productView(id){
         <button class="btn btn-red btn-block btn-lg" data-addpdp="${id}">add to bag — <span id="atcPrice">$${p.price}</span> ◡̈</button>
         <div class="trust">
           <div>◡̈ fragrance-free · menthol-free · camphor-free</div>
-          <div>🚚 free shipping over $35 · ships in 1–2 days</div>
+          <div>🚚 free shipping over $35 · ships worldwide</div>
           <div>♡ 30-day soft-lips promise or your money back</div>
         </div>
         <div class="pdp-onerev">“${p.revs[0].t}” <b>— ${p.revs[0].n}</b></div>
@@ -1131,7 +1135,7 @@ function productView(id){
           <div class="acc-item"><button class="acc-head" data-acc>who it’s for <span class="pm">+</span></button>
             <div class="acc-body"><p>made for sensitive, dry, reactive and chronically-chapped lips — and anyone who wants colour that feels like skincare. dermatologist-tested. vegan &amp; cruelty-free.</p></div></div>
           <div class="acc-item"><button class="acc-head" data-acc>shipping &amp; returns <span class="pm">+</span></button>
-            <div class="acc-body"><p>free shipping on orders over $35, flat $4 below that. ships within 1–2 business days. love it or return it within 30 days for a full refund — even if it’s opened.</p></div></div>
+            <div class="acc-body"><p>free shipping on orders over $35, flat $4 below that. we ship worldwide — delivery is about 1–2 business days in the US and up to 2 weeks for the rest of the world. love it or return it within 30 days for a full refund — even if it’s opened.</p></div></div>
         </div>
       </div>
     </div>
@@ -1387,6 +1391,7 @@ function cartView(){
           <div class="sum-row total"><span>total</span><span>${money(total)}</span></div>
           <button class="btn btn-red btn-block btn-lg" style="margin-top:16px;" data-checkout>proceed to checkout →</button>
           <div class="trust" style="margin-top:14px;">
+            <div>🚚 ships worldwide · 1–2 day US delivery, up to 2 weeks elsewhere</div>
             <div>🔒 powered by Stripe · encrypted &amp; secure</div>
             <div>♡ 30-day soft-lips money-back promise</div>
           </div>
@@ -1405,7 +1410,7 @@ function confirmView(){
     <div class="big">◡̈</div>
     <h1>your kiss is on its way!</h1>
     <p>thank you — your order is confirmed and your lips are about to be very happy.</p>
-    <div id="receiptBox">${sessionId?'<div class="ordbox" id="receiptLoading">loading your receipt… ◡̈</div>':'<div class="ordbox">order <b>#'+orderNo+'</b><br>a confirmation has been sent to your email.<br>ships within 1–2 business days 🚚</div>'}</div>
+    <div id="receiptBox">${sessionId?'<div class="ordbox" id="receiptLoading">loading your receipt… ◡̈</div>':'<div class="ordbox">order <b>#'+orderNo+'</b><br>a confirmation has been sent to your email.<br>ships worldwide · tracking emailed when it ships 🚚</div>'}</div>
     ${real?'':'<p style="font-size:13px;color:var(--ink-soft);">preview mode — set STRIPE_SECRET_KEY on the host to take live payments.</p>'}
     <div class="confirm-actions" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;">
       ${sessionId?'<button class="btn btn-pink" data-print>download receipt</button>':''}
@@ -1421,30 +1426,41 @@ function loadOrder(){
     .then(function(o){ renderReceipt(o); })
     .catch(function(){
       const el=document.getElementById('receiptLoading');
-      if(el){el.removeAttribute('id');el.innerHTML='your order is confirmed ◡̈<br>a receipt has been emailed to you.<br>ships within 1–2 business days 🚚';}
+      if(el){el.removeAttribute('id');el.innerHTML='your order is confirmed ◡̈<br>a receipt has been emailed to you.<br>ships worldwide · tracking emailed when it ships 🚚';}
     });
 }
 function renderReceipt(o){
   const box=document.getElementById('receiptBox');
   if(!box) return;
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   const d=new Date((o.created||Math.floor(Date.now()/1000))*1000);
   const dateStr=d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
   const ref='MOCHI-'+String(o.id||'').slice(-8).toUpperCase();
   const rows=(o.items||[]).map(function(i){
-    return '<tr><td>'+i.name+' <span>×'+i.qty+'</span></td><td>'+money((i.amount||0)/100)+'</td></tr>';
+    return '<tr><td>'+esc(i.name)+' <span>×'+i.qty+'</span></td><td>'+money((i.amount||0)/100)+'</td></tr>';
   }).join('');
+  const sh=o.shipping;
+  const shipBlock=sh?(
+    '<div class="rcp-ship"><div class="rcp-ship-h">📦 shipping to</div><div class="rcp-ship-b">'+
+    [sh.name,sh.line1,sh.line2,
+     [sh.city,sh.state,sh.postalCode].filter(Boolean).join(', '),
+     sh.country].filter(Boolean).map(esc).join('<br>')+
+    '</div></div>'
+  ):'';
   box.innerHTML=
     '<div class="receipt" id="receipt">'+
       '<div class="rcp-head"><div class="rcp-logo">◡̈ mochi</div>'+
         '<div class="rcp-meta">RECEIPT<br><b>#'+ref+'</b><br>'+dateStr+'</div></div>'+
-      '<div class="rcp-to">billed to '+(o.email||'you')+'</div>'+
+      '<div class="rcp-to">billed to '+esc(o.email||'you')+'</div>'+
+      shipBlock+
       '<table class="rcp-table"><tbody>'+rows+
         '<tr class="rcp-line"><td>subtotal</td><td>'+money((o.amountSubtotal||0)/100)+'</td></tr>'+
         '<tr class="rcp-line"><td>shipping</td><td>'+(o.amountShipping?money(o.amountShipping/100):'free')+'</td></tr>'+
         '<tr class="rcp-total"><td>total paid</td><td>'+money((o.amountTotal||0)/100)+'</td></tr>'+
       '</tbody></table>'+
       '<div class="rcp-foot">payment confirmed ◡̈ thank you for choosing mochi<br>questions? hellosquishy@mochilipstick.com</div>'+
-    '</div>';
+    '</div>'+
+    (sh?'<p class="deliv-note">🚚 delivery: about 1–2 business days in the US · up to 2 weeks for the rest of the world. tracking lands in your inbox the moment it ships.</p>':'');
 }
 
 /* ============ ROUTER ============ */
