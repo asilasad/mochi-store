@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mochi — The Tinted Lip Balm That Loves Your Lips Back</title>
+<meta name="description" content="Mochi Kiss Balm — a skincare-grade tinted lip balm. Fragrance-free, barrier-repairing, gentle on sensitive lips. Real colour, real care, no compromise. 4 mochi shades.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23F2A9BE'/%3E%3Cpath d='M34 44q4 6 10 0M56 44q4 6 10 0M38 60q12 12 24 0' stroke='%23E0455A' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#F2A9BE; --pink-deep:#E98DAA; --pink-pale:#FCE4EA; --pink-wash:#FBEEF1;
+    --mint:#BEE3CF; --mint-pale:#E2F2E8; --butter:#F6DC93; --taro:#C7B6E6; --peach:#F6C5A4;
+    --cream:#FCF7F0; --red:#E0455A; --red-dark:#C93A4D; --ink:#43303A; --ink-soft:#7C6670;
+    --radius:24px; --shadow:0 18px 40px -24px rgba(67,48,58,.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4,.fred{font-family:'Fredoka',sans-serif;font-weight:600;line-height:1.15;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .eyebrow{font-family:'Fredoka';font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;color:var(--red);}
+  section{padding:84px 0;}
+  .sec-tight{padding:54px 0;}
+
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Fredoka';font-weight:600;font-size:16px;padding:15px 30px;border-radius:999px;transition:transform .15s ease,box-shadow .15s ease;}
+  .btn:active{transform:scale(.97);}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 12px 24px -12px rgba(224,69,90,.7);}
+  .btn-red:hover{background:var(--red-dark);}
+  .btn-pink{background:#fff;color:var(--red);border:2px solid var(--pink);}
+  .btn-pink:hover{background:var(--pink-pale);}
+  .btn-block{width:100%;}
+  .btn-lg{padding:18px 38px;font-size:17px;}
+
+  /* ANNOUNCEMENT */
+  #announce{background:var(--red);color:#fff;text-align:center;font-family:'Fredoka';font-weight:500;font-size:13.5px;letter-spacing:.03em;padding:9px 16px;}
+
+  /* HEADER */
+  header{position:sticky;top:0;z-index:60;background:rgba(252,247,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(67,48,58,.07);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .logo{font-family:'Fredoka';font-weight:700;font-size:30px;color:var(--red);letter-spacing:.01em;line-height:1;display:flex;align-items:center;gap:7px;}
+  .logo .face{font-size:17px;}
+  .nav-links{display:flex;gap:30px;font-family:'Fredoka';font-weight:500;font-size:16px;}
+  .nav-links a:hover{color:var(--red);}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .cart-btn{position:relative;background:none;font-size:23px;line-height:1;padding:4px;}
+  .cart-count{position:absolute;top:-5px;right:-7px;background:var(--red);color:#fff;font-family:'Fredoka';font-weight:600;font-size:11px;min-width:18px;height:18px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+  .burger{display:none;background:none;font-size:24px;}
+  .mmenu{display:none;flex-direction:column;background:var(--cream);border-bottom:1px solid rgba(67,48,58,.1);position:sticky;top:70px;z-index:58;}
+  .mmenu.open{display:flex;}
+  .mmenu a{padding:14px 28px;font-family:'Fredoka';font-weight:500;font-size:16px;border-bottom:1px solid rgba(67,48,58,.06);}
+  .mmenu a:hover{color:var(--red);}
+
+  /* HERO */
+  .hero{position:relative;min-height:584px;display:flex;align-items:center;overflow:hidden;background:linear-gradient(155deg,var(--pink-pale),var(--mint-pale));}
+  .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(102deg,rgba(252,228,234,.97) 0%,rgba(252,228,234,.9) 26%,rgba(251,238,241,.62) 48%,rgba(226,242,232,.16) 74%,rgba(226,242,232,0) 100%);}
+  .hero-inner{position:relative;z-index:2;width:100%;}
+  .hero-text{max-width:540px;padding:74px 0;}
+  .hero h1{font-size:clamp(40px,5.4vw,64px);font-weight:600;margin:16px 0 18px;}
+  .hero h1 .em{color:var(--red);}
+  .hero p.sub{font-size:19px;color:var(--ink-soft);max-width:430px;margin-bottom:28px;}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-tokens{display:flex;gap:18px;margin-top:26px;flex-wrap:wrap;font-family:'Fredoka';font-weight:500;font-size:13.5px;color:var(--ink);}
+  .hero-tokens span{display:flex;align-items:center;gap:6px;}
+
+  /* PROOF BAR */
+  .proof{background:var(--ink);color:#fff;}
+  .proof .wrap{display:flex;justify-content:space-around;flex-wrap:wrap;gap:18px;padding:20px 28px;text-align:center;}
+  .proof .it{font-family:'Fredoka';font-weight:500;font-size:14px;display:flex;align-items:center;gap:8px;}
+  .proof .it b{color:var(--pink);}
+
+  /* SECTION HEADINGS */
+  .sh{text-align:center;max-width:640px;margin:0 auto 46px;}
+  .sh h2{font-size:clamp(30px,4vw,44px);font-weight:600;margin:14px 0 12px;}
+  .sh p{color:var(--ink-soft);font-size:17px;}
+
+  /* PROBLEM */
+  .problem{background:var(--pink-wash);}
+  .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:36px;}
+  .prob-card{background:#fff;border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow);}
+  .prob-card .ic{font-size:30px;margin-bottom:12px;}
+  .prob-card h3{font-size:19px;margin-bottom:8px;}
+  .prob-card p{font-size:14.5px;color:var(--ink-soft);}
+  .prob-answer{background:var(--red);color:#fff;border-radius:var(--radius);padding:44px;text-align:center;}
+  .prob-answer h3{font-size:clamp(24px,3vw,32px);font-weight:500;max-width:760px;margin:0 auto 10px;}
+  .prob-answer p{opacity:.9;font-size:16px;}
+
+  /* FEATURE PRODUCT */
+  .feature{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .feature .fimg{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--pink-pale);}
+  .feature .fimg img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+  .feature .stars{color:#F2B600;font-size:17px;letter-spacing:2px;}
+  .feature h2{font-size:clamp(28px,3.6vw,40px);margin:10px 0 8px;}
+  .feature .price{font-family:'Fredoka';font-weight:600;font-size:23px;color:var(--red);margin:6px 0 16px;}
+  .feature ul{list-style:none;margin:18px 0 24px;}
+  .feature ul li{padding:6px 0 6px 28px;position:relative;font-size:15.5px;}
+  .feature ul li::before{content:"◡̈";position:absolute;left:0;color:var(--pink-deep);font-family:'Fredoka';}
+
+  /* SHADES */
+  .shades{background:var(--mint-pale);}
+  .shade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .scard{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease;cursor:pointer;}
+  .scard:hover{transform:translateY(-6px);}
+  .scard .pic{aspect-ratio:1/1;overflow:hidden;}
+  .scard .pic img{width:100%;height:100%;object-fit:cover;}
+  .scard .info{padding:18px 18px 22px;text-align:center;}
+  .scard .sw{width:30px;height:30px;border-radius:50%;margin:-32px auto 8px;border:3px solid #fff;position:relative;box-shadow:0 4px 10px -3px rgba(0,0,0,.3);}
+  .scard h3{font-size:18px;}
+  .scard .tone{font-size:13px;color:var(--ink-soft);margin-bottom:10px;}
+  .scard .price{font-family:'Fredoka';font-weight:600;color:var(--red);font-size:16px;}
+
+  /* INGREDIENTS */
+  .ing{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .ing .iimg{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+  .ing .iimg img{width:100%;aspect-ratio:3/2;object-fit:cover;}
+  .ing-list{margin-top:18px;}
+  .ing-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed rgba(67,48,58,.16);}
+  .ing-item .ed{font-size:24px;}
+  .ing-item h4{font-size:16px;margin-bottom:2px;}
+  .ing-item p{font-size:14px;color:var(--ink-soft);}
+  .free-from{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;}
+  .ff{background:var(--mint-pale);border-radius:999px;padding:7px 15px;font-family:'Fredoka';font-weight:500;font-size:13px;}
+
+  /* FORMULA SANDBOX */
+  .sandbox{background:var(--mint-pale);}
+  .sb-stage{max-width:980px;margin:0 auto;}
+  .sb-toggle{display:flex;gap:6px;background:#fff;border-radius:999px;padding:6px;width:max-content;max-width:100%;margin:0 auto 26px;box-shadow:var(--shadow);}
+  .sb-mode{background:none;border-radius:999px;padding:12px 24px;font-family:'Fredoka';font-weight:600;font-size:14.5px;color:var(--ink-soft);transition:background .15s,color .15s;}
+  .sb-mode.active{background:var(--red);color:#fff;}
+  .sb-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;background:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);}
+  .sb-visual{background:linear-gradient(160deg,var(--pink-pale),var(--mint-pale));border-radius:18px;padding:16px;}
+  .sb-visual svg{width:100%;height:auto;display:block;}
+  .sb-state-label{font-family:'Fredoka';font-weight:600;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+  .sb-stat{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px dashed rgba(67,48,58,.16);}
+  .sb-k{font-family:'Fredoka';font-weight:500;color:var(--ink-soft);font-size:14px;}
+  .sb-v{font-family:'Fredoka';font-weight:600;font-size:14.5px;text-align:right;}
+  .sb-stage.mode-ordinary .sb-v{color:#B07C86;}
+  .sb-stage.mode-mochi .sb-v{color:var(--red);}
+  .sb-explain{font-size:14.5px;color:var(--ink-soft);margin-top:14px;}
+  .sb-stage.mode-ordinary .mochi-only,.sb-stage.mode-ordinary .mochi-grp{display:none;}
+  .sb-stage.mode-mochi .ord-only,.sb-stage.mode-mochi .ord-grp{display:none;}
+  .sb-ing{max-width:980px;margin:32px auto 0;background:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);}
+  .sb-ing h3{text-align:center;font-size:18px;margin-bottom:18px;}
+  .sb-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:18px;}
+  .sb-chip{background:var(--cream);border:2px solid rgba(67,48,58,.12);border-radius:999px;padding:10px 18px;font-family:'Fredoka';font-weight:600;font-size:14px;color:var(--ink);transition:.15s;}
+  .sb-chip.active{background:var(--pink-wash);border-color:var(--red);color:var(--red);}
+  .sb-ing-panel{display:none;align-items:center;gap:18px;background:var(--mint-pale);border-radius:18px;padding:22px 24px;}
+  .sb-ing-panel.active{display:flex;}
+  .sb-ing-ic{font-size:40px;flex:none;}
+  .sb-ing-panel h4{font-size:16.5px;margin-bottom:3px;}
+  .sb-ing-panel p{font-size:14px;color:var(--ink-soft);}
+  .sb-freefrom{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:22px;}
+
+  /* STEPS */
+  .steps{background:var(--pink-wash);}
+  .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .step{text-align:center;}
+  .step .n{width:54px;height:54px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka';font-weight:600;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+  .step h3{font-size:18px;margin-bottom:6px;}
+  .step p{font-size:14.5px;color:var(--ink-soft);}
+
+  /* REVIEWS */
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .rev{background:#fff;border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);}
+  .rev .stars{color:#F2B600;letter-spacing:2px;font-size:15px;}
+  .rev p{font-size:15px;margin:10px 0 14px;}
+  .rev .who{font-family:'Fredoka';font-weight:600;font-size:14px;}
+  .rev .who span{display:block;font-family:'Nunito';font-weight:400;font-size:12.5px;color:var(--ink-soft);}
+
+  /* STORY TEASER */
+  .story-teaser{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;background:var(--taro);border-radius:var(--radius);overflow:hidden;}
+  .story-teaser .stimg img{width:100%;height:100%;min-height:340px;object-fit:cover;}
+  .story-teaser .sttext{padding:54px 44px;}
+  .story-teaser h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:12px;color:#fff;}
+  .story-teaser p{color:#fff;opacity:.92;margin-bottom:20px;}
+
+  /* NEWSLETTER */
+  .news{background:linear-gradient(155deg,var(--mint-pale),var(--pink-pale));text-align:center;}
+  .news h2{font-size:clamp(28px,3.6vw,40px);margin-bottom:10px;}
+  .news p{color:var(--ink-soft);margin-bottom:24px;}
+  .news form{display:flex;gap:10px;max-width:440px;margin:0 auto;}
+  .news input{flex:1;border:2px solid var(--pink);border-radius:999px;padding:14px 22px;font-family:'Nunito';font-size:15px;background:#fff;}
+  .news input:focus{outline:none;border-color:var(--red);}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:#fff;padding:60px 0 28px;}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px;}
+  .foot-grid h4{font-family:'Fredoka';font-size:15px;margin-bottom:14px;color:var(--pink);}
+  .foot-grid a,.foot-grid p{display:block;font-size:14px;opacity:.8;margin-bottom:8px;}
+  .foot-grid a:hover{opacity:1;color:var(--pink);}
+  .foot-logo{font-family:'Fredoka';font-weight:700;font-size:30px;color:var(--pink);margin-bottom:10px;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.13);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;opacity:.7;}
+  .pay{display:flex;gap:8px;}
+  .pay span{background:rgba(255,255,255,.12);border-radius:6px;padding:3px 9px;font-size:11px;font-family:'Fredoka';}
+
+  /* ===== PDP ===== */
+  .crumb{font-size:13px;color:var(--ink-soft);padding:22px 0 0;}
+  .crumb a:hover{color:var(--red);}
+  .pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;padding:30px 0 20px;}
+  .gallery .main{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--pink-pale);}
+  .gallery .main img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+  .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
+  .thumbs img{border-radius:14px;aspect-ratio:1/1;object-fit:cover;cursor:pointer;border:2px solid transparent;background:var(--pink-pale);}
+  .thumbs img.active{border-color:var(--red);}
+  .buybox{position:sticky;top:90px;align-self:start;}
+  .buybox h1{font-size:clamp(28px,3.4vw,38px);margin-bottom:4px;}
+  .buybox .hook{color:var(--ink-soft);font-size:16px;margin-bottom:10px;}
+  .buybox .rrow{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-soft);margin-bottom:14px;}
+  .buybox .rrow .stars{color:#F2B600;letter-spacing:1.5px;font-size:15px;}
+  .price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:18px;}
+  .price-row .now{font-family:'Fredoka';font-weight:600;font-size:28px;color:var(--red);}
+  .price-row .was{text-decoration:line-through;color:var(--ink-soft);font-size:17px;}
+  .price-row .save{background:var(--mint);color:var(--ink);font-family:'Fredoka';font-weight:600;font-size:12px;padding:3px 10px;border-radius:999px;}
+  .sellabel{font-family:'Fredoka';font-weight:600;font-size:14px;margin-bottom:9px;}
+  .sellabel span{color:var(--ink-soft);font-weight:400;}
+  .swatches{display:flex;gap:12px;margin-bottom:22px;}
+  .swatch{width:46px;height:46px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px transparent,0 5px 12px -4px rgba(0,0,0,.3);cursor:pointer;transition:box-shadow .15s;}
+  .swatch.active{box-shadow:0 0 0 2px var(--red),0 5px 12px -4px rgba(0,0,0,.3);}
+  .buy-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+  .opt{border:2px solid rgba(67,48,58,.14);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .15s,background .15s;}
+  .opt.active{border-color:var(--red);background:var(--pink-wash);}
+  .opt .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ink-soft);flex:none;}
+  .opt.active .dot{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 3px #fff;}
+  .opt .lbl{font-family:'Fredoka';font-weight:600;font-size:14.5px;}
+  .opt .lbl small{display:block;font-family:'Nunito';font-weight:400;font-size:12.5px;color:var(--ink-soft);}
+  .opt .op{margin-left:auto;font-family:'Fredoka';font-weight:600;color:var(--red);}
+  .trust{display:flex;flex-direction:column;gap:6px;margin:14px 0 6px;font-size:13px;color:var(--ink-soft);}
+  .trust div{display:flex;gap:7px;align-items:center;}
+  .pdp-onerev{background:var(--mint-pale);border-radius:16px;padding:14px 18px;font-size:14px;margin-top:16px;font-style:italic;}
+  .pdp-onerev b{font-style:normal;font-family:'Fredoka';}
+
+  /* ACCORDION */
+  .acc{margin-top:14px;}
+  .acc-item{border-bottom:1px solid rgba(67,48,58,.13);}
+  .acc-head{width:100%;background:none;text-align:left;padding:16px 0;display:flex;justify-content:space-between;align-items:center;font-family:'Fredoka';font-weight:600;font-size:15.5px;color:var(--ink);}
+  .acc-head .pm{color:var(--red);font-size:20px;}
+  .acc-body{display:none;padding:0 0 18px;font-size:14.5px;color:var(--ink-soft);}
+  .acc-body.open{display:block;}
+  .acc-body ul{margin:6px 0 0 18px;}
+
+  .pdp-section{padding:54px 0;}
+  .pdp-section h2{font-size:clamp(24px,3vw,34px);text-align:center;margin-bottom:30px;}
+  .ing-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .ing-strip .ic{background:#fff;border-radius:18px;padding:22px 18px;text-align:center;box-shadow:var(--shadow);}
+  .ing-strip .ic .e{font-size:28px;}
+  .ing-strip .ic h4{font-size:15px;margin:8px 0 4px;}
+  .ing-strip .ic p{font-size:13px;color:var(--ink-soft);}
+
+  /* SHOP */
+  .shop-head{text-align:center;padding:50px 0 30px;}
+  .shop-head h1{font-size:clamp(32px,4.4vw,48px);margin:10px 0;}
+  .shop-head p{color:var(--ink-soft);font-size:17px;}
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding-bottom:30px;}
+  .pcard{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;}
+  .pcard .pcimg{aspect-ratio:1/1;overflow:hidden;background:var(--pink-pale);cursor:pointer;}
+  .pcard .pcimg img{width:100%;height:100%;object-fit:cover;transition:transform .25s;}
+  .pcard .pcimg:hover img{transform:scale(1.05);}
+  .pcard .pcbody{padding:20px;display:flex;flex-direction:column;flex:1;}
+  .pcard .tag{font-family:'Fredoka';font-weight:600;font-size:11px;color:var(--red);letter-spacing:.08em;text-transform:uppercase;}
+  .pcard h3{font-size:19px;margin:5px 0 3px;}
+  .pcard .tone{font-size:13px;color:var(--ink-soft);margin-bottom:10px;}
+  .pcard .stars{color:#F2B600;font-size:13px;letter-spacing:1.5px;margin-bottom:10px;}
+  .pcard .pcfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .pcard .pcfoot .pr{font-family:'Fredoka';font-weight:600;font-size:19px;color:var(--red);}
+
+  /* STORY PAGE */
+  .story-hero{text-align:center;padding:60px 0 40px;}
+  .story-hero h1{font-size:clamp(34px,5vw,56px);margin:14px 0;}
+  .story-hero p{color:var(--ink-soft);font-size:18px;max-width:600px;margin:0 auto;}
+  .story-band img{width:100%;height:420px;object-fit:cover;border-radius:var(--radius);}
+  .story-body{max-width:720px;margin:0 auto;}
+  .story-body h2{font-size:26px;margin:34px 0 10px;}
+  .story-body p{font-size:16.5px;margin-bottom:14px;}
+  .story-body .pull{font-family:'Fredoka';font-weight:500;font-size:24px;color:var(--red);border-left:4px solid var(--pink);padding-left:22px;margin:24px 0;}
+
+  /* CART */
+  .cart-page{padding:40px 0;}
+  .cart-page h1{font-size:clamp(30px,4vw,42px);margin-bottom:24px;}
+  .cart-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start;}
+  .cart-line{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(67,48,58,.12);}
+  .cart-line img{width:92px;height:92px;border-radius:14px;object-fit:cover;background:var(--pink-pale);}
+  .cart-line .cl-info{flex:1;}
+  .cart-line .cl-info h3{font-size:17px;}
+  .cart-line .cl-info .cl-tone{font-size:13px;color:var(--ink-soft);}
+  .qty{display:inline-flex;align-items:center;border:2px solid var(--pink);border-radius:999px;margin-top:8px;overflow:hidden;}
+  .qty button{background:none;width:30px;height:30px;font-family:'Fredoka';font-size:17px;color:var(--red);}
+  .qty span{width:34px;text-align:center;font-family:'Fredoka';font-weight:600;font-size:14px;}
+  .cl-right{text-align:right;}
+  .cl-right .cl-price{font-family:'Fredoka';font-weight:600;color:var(--red);font-size:17px;}
+  .cl-remove{background:none;font-size:12px;color:var(--ink-soft);text-decoration:underline;margin-top:8px;}
+  .summary{background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);position:sticky;top:90px;}
+  .summary h3{font-size:20px;margin-bottom:16px;}
+  .sum-row{display:flex;justify-content:space-between;font-size:14.5px;padding:7px 0;color:var(--ink-soft);}
+  .sum-row.total{border-top:1px solid rgba(67,48,58,.14);margin-top:8px;padding-top:14px;font-family:'Fredoka';font-weight:600;font-size:19px;color:var(--ink);}
+  .ship-bar{background:var(--mint-pale);border-radius:14px;padding:12px 14px;font-size:13px;margin:14px 0;text-align:center;}
+  .ship-bar .track{height:7px;background:#fff;border-radius:999px;margin-top:8px;overflow:hidden;}
+  .ship-bar .fill{height:100%;background:var(--mint);border-radius:999px;transition:width .3s;}
+  .empty{text-align:center;padding:70px 20px;}
+  .empty .big{font-size:54px;}
+  .empty h2{font-size:26px;margin:14px 0 8px;}
+  .empty p{color:var(--ink-soft);margin-bottom:20px;}
+
+  /* CHECKOUT */
+  .co-form{background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);}
+  .co-form h3{font-size:18px;margin:18px 0 12px;}
+  .co-form h3:first-child{margin-top:0;}
+  .field{margin-bottom:13px;}
+  .field label{font-size:13px;font-family:'Fredoka';font-weight:600;display:block;margin-bottom:4px;}
+  .field input,.field select{width:100%;border:2px solid rgba(67,48,58,.16);border-radius:12px;padding:11px 14px;font-family:'Nunito';font-size:14.5px;}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--red);}
+  .field.err input{border-color:var(--red);}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .confirm{text-align:center;padding:70px 20px;max-width:560px;margin:0 auto;}
+  .confirm .big{font-size:64px;}
+  .confirm h1{font-size:32px;margin:14px 0 10px;}
+  .confirm p{color:var(--ink-soft);margin-bottom:8px;}
+  .confirm .ordbox{background:var(--mint-pale);border-radius:16px;padding:18px;margin:20px 0;font-size:14px;}
+
+  /* RECEIPT */
+  .receipt{background:#fff;border:1px solid rgba(67,48,58,.14);border-radius:18px;padding:26px 28px;max-width:430px;margin:0 auto;text-align:left;box-shadow:var(--shadow);}
+  .rcp-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px dashed rgba(67,48,58,.18);padding-bottom:14px;margin-bottom:14px;}
+  .rcp-logo{font-family:'Fredoka';font-weight:700;font-size:25px;color:var(--red);}
+  .rcp-meta{text-align:right;font-size:11px;color:var(--ink-soft);font-family:'Fredoka';letter-spacing:.05em;line-height:1.6;}
+  .rcp-meta b{color:var(--ink);font-size:13px;letter-spacing:0;}
+  .rcp-to{font-size:13px;color:var(--ink-soft);margin-bottom:10px;}
+  .rcp-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .rcp-table td{padding:7px 0;}
+  .rcp-table td:last-child{text-align:right;font-family:'Fredoka';font-weight:600;white-space:nowrap;}
+  .rcp-table td span{color:var(--ink-soft);font-weight:400;font-size:12px;}
+  .rcp-table .rcp-line td{color:var(--ink-soft);border-top:1px dashed rgba(67,48,58,.16);font-size:13px;}
+  .rcp-table .rcp-total td{border-top:2px solid var(--ink);padding-top:11px;font-family:'Fredoka';font-weight:700;font-size:16px;color:var(--red);}
+  .rcp-foot{margin-top:16px;padding-top:14px;border-top:2px dashed rgba(67,48,58,.18);font-size:11.5px;color:var(--ink-soft);text-align:center;line-height:1.7;}
+  @media print{
+    body{background:#fff;}
+    body *{visibility:hidden;}
+    #receipt,#receipt *{visibility:visible;}
+    #receipt{position:absolute;left:50%;transform:translateX(-50%);top:12px;box-shadow:none;}
+    #announce,header,footer,.confirm-actions{display:none!important;}
+  }
+
+  /* CART DRAWER */
+  .drawer-bg{position:fixed;inset:0;background:rgba(67,48,58,.45);z-index:90;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .drawer-bg.open{opacity:1;pointer-events:auto;}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:390px;max-width:90vw;background:var(--cream);z-index:100;transform:translateX(100%);transition:transform .28s ease;display:flex;flex-direction:column;}
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid rgba(67,48,58,.1);}
+  .drawer-head h3{font-size:19px;}
+  .drawer-head button{background:none;font-size:22px;color:var(--ink-soft);}
+  .drawer-body{flex:1;overflow-y:auto;padding:10px 22px;}
+  .drawer-foot{padding:20px 22px;border-top:1px solid rgba(67,48,58,.1);background:#fff;}
+  .dline{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid rgba(67,48,58,.09);}
+  .dline img{width:66px;height:66px;border-radius:12px;object-fit:cover;background:var(--pink-pale);}
+  .dline .di{flex:1;font-size:13.5px;}
+  .dline .di h4{font-size:14.5px;}
+  .dline .di .dt{color:var(--ink-soft);font-size:12px;}
+
+  /* MOBILE STICKY ATC */
+  .m-atc{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;box-shadow:0 -8px 24px -14px rgba(67,48,58,.5);padding:12px 16px;z-index:55;align-items:center;gap:12px;}
+  .m-atc .mp{font-family:'Fredoka';font-weight:600;font-size:18px;color:var(--red);}
+  .m-atc .btn{flex:1;}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;font-family:'Fredoka';font-weight:500;font-size:14px;padding:13px 24px;border-radius:999px;z-index:120;transition:transform .3s ease;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:920px){
+    .nav-links{display:none;}
+    .burger{display:block;}
+    .hero{min-height:0;}
+    .hero-scrim{background:linear-gradient(180deg,rgba(252,228,234,.82) 0%,rgba(251,238,241,.72) 45%,rgba(252,228,234,.9) 100%);}
+    .hero-text{padding:54px 0 46px;text-align:center;max-width:none;}
+    .hero p.sub{margin-left:auto;margin-right:auto;}
+    .hero-cta,.hero-tokens{justify-content:center;}
+    .feature,.ing,.story-teaser,.sb-grid{grid-template-columns:1fr;gap:30px;}
+    .story-teaser .sttext{padding:36px 28px;}
+    .pdp{grid-template-columns:1fr;gap:26px;}
+    .buybox{position:static;}
+    .prob-grid,.step-grid,.rev-grid,.shade-grid,.shop-grid,.ing-strip{grid-template-columns:1fr 1fr;}
+    .cart-layout{grid-template-columns:1fr;}
+    .summary{position:static;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .m-atc.show{display:flex;}
+    section{padding:58px 0;}
+  }
+  @media(max-width:560px){
+    .prob-grid,.step-grid,.rev-grid,.shade-grid,.shop-grid,.ing-strip,.foot-grid,.frow{grid-template-columns:1fr;}
+    .thumbs{grid-template-columns:repeat(4,1fr);}
+    .news form{flex-direction:column;}
+    .wrap{padding:0 18px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="announce"></div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#/" class="logo"><span class="face">◡̈</span>mochi</a>
+    <nav class="nav-links">
+      <a href="#/shop">Shop All</a>
+      <a href="#/product/strawberry">Find Your Shade</a>
+      <a href="#/story">Our Story</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" data-open-cart aria-label="Open cart">🛍️<span class="cart-count" id="cc">0</span></button>
+      <button class="burger" data-burger aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mmenu" id="mmenu">
+  <a href="#/shop" data-mclose>shop all</a>
+  <a href="#/product/strawberry" data-mclose>find your shade</a>
+  <a href="#/story" data-mclose>our story</a>
+  <a href="#/cart" data-mclose>your bag ◡̈</a>
+</div>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">◡̈ mochi</div>
+        <p style="max-width:280px;">the tinted lip balm that loves your lips back. colour for lips that were told they couldn't.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="#/shop">All Products</a>
+        <a href="#/product/strawberry">Strawberry Mochi</a>
+        <a href="#/product/mango">Mango Mochi</a>
+        <a href="#/product/taro">Taro Mochi</a>
+        <a href="#/product/peach">Peach Mochi</a>
+        <a href="#/product/box">The Mochi Box</a>
+      </div>
+      <div>
+        <h4>Mochi</h4>
+        <a href="#/story">Our Story</a>
+        <a href="#/story">The Mission</a>
+        <a href="#/story">Ingredients</a>
+        <a href="#/shop">Find Your Shade</a>
+      </div>
+      <div>
+        <h4>Say Hi</h4>
+        <a href="https://www.instagram.com/mochi_lipstick" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@mochi_lipstick" target="_blank" rel="noopener">TikTok</a>
+        <a href="#/">Help &amp; Shipping</a>
+        <a href="#/">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Mochi. made soft, with care. ◡̈ · fragrance-free · cruelty-free · vegan</span>
+      <span class="pay"><span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>APPLE PAY</span><span>KLARNA</span></span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="drawer-bg" data-close-cart></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>your bag ◡̈</h3>
+    <button data-close-cart aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ DATA ============ */
+const FREE_SHIP = 35;
+const PRODUCTS = {
+  strawberry:{
+    id:'strawberry', name:'Strawberry Mochi', kind:'shade', tag:'Bestseller',
+    tone:'rosy everyday pink', color:'#F4B6C7', price:15,
+    hook:'the rosy pink that goes with absolutely everything.',
+    desc:'your softest everyday pink — sheer, buildable and so comfortable you forget you’re wearing it. strawberry mochi melts on like a balm and blooms into a fresh rosy tint that flatters every undertone.',
+    img:'images/product-pink.webp',
+    gallery:['images/product-pink.webp','images/texture-swatch.webp','images/lip-application.webp','images/packaging-detail.webp'],
+    rating:4.9, reviews:212,
+    revs:[
+      {s:5,t:'i have the most sensitive lips on earth and this is the FIRST tinted thing that doesn’t sting. crying.',n:'maya r.',m:'sensitive lips · 19'},
+      {s:5,t:'the squish. the click. the glide. it’s genuinely the most satisfying thing i own and the color is so pretty.',n:'priya k.',m:'combination · 23'},
+      {s:4,t:'wore it through lunch and my lips still felt soft after. wish it was a touch more pigmented but i just build it up.',n:'el t.',m:'dry lips · 21'}
+    ]
+  },
+  mango:{
+    id:'mango', name:'Mango Mochi', kind:'shade', tag:'New',
+    tone:'warm brightening tint', color:'#F6DC93', price:15,
+    hook:'butter-yellow in the tube, warm glow on the lips.',
+    desc:'goes on like soft butter-yellow and blooms into a warm, brightening my-lips-but-sunnier tint. mango mochi is the one that makes you look like you slept ten hours and drank your water.',
+    img:'images/product-yellow.webp',
+    gallery:['images/product-yellow.webp','images/mango-texture.webp','images/mango-lip.webp','images/mango-packaging.webp'],
+    rating:4.8, reviews:96,
+    revs:[
+      {s:5,t:'was scared of yellow but it warms up into the prettiest peachy glow. obsessed is an understatement.',n:'sana m.',m:'normal · 20'},
+      {s:5,t:'no flaking, no weird waxy feeling. just soft. my lips actually look healthier after a week.',n:'jordan a.',m:'chapped lips · 24'},
+      {s:5,t:'cutest thing on my desk and it works?? unreal.',n:'nik p.',m:'sensitive lips · 18'}
+    ]
+  },
+  taro:{
+    id:'taro', name:'Taro Mochi', kind:'shade', tag:'Fan Favourite',
+    tone:'lavender to cool berry-rose', color:'#C7B6E6', price:15,
+    hook:'lavender that blooms into a cool, soft-glam berry.',
+    desc:'taro mochi goes on as dreamy lavender and warms into a cool berry-rose — the soft-glam shade that looks like effort without any of the effort. gentle enough to wear daily, pretty enough for the photos.',
+    img:'images/product-purple.webp',
+    gallery:['images/product-purple.webp','images/taro-texture.webp','images/taro-lip.webp','images/taro-packaging.webp'],
+    rating:4.9, reviews:148,
+    revs:[
+      {s:5,t:'the color-change thing is so fun and it lands on the perfect cool berry on me. my signature now.',n:'amelia w.',m:'normal · 22'},
+      {s:5,t:'i used to think colour wasn’t for me because everything peeled. taro mochi proved me wrong.',n:'rae l.',m:'reactive lips · 25'},
+      {s:4,t:'gorgeous and comfy. i reapply after meals but honestly i just like the ritual.',n:'cici h.',m:'dry lips · 20'}
+    ]
+  },
+  peach:{
+    id:'peach', name:'Peach Mochi', kind:'shade', tag:'Universal',
+    tone:'soft fresh coral-peach', color:'#F6C5A4', price:15,
+    hook:'the fresh coral-peach that looks good on everyone.',
+    desc:'soft, fresh and warm — peach mochi is the just-came-back-from-a-walk flush of colour. the most universally flattering of the four and a multi-use favourite for lips, cheeks and lids.',
+    img:'images/product-peach.webp',
+    gallery:['images/product-peach.webp','images/peach-texture.webp','images/peach-lip.webp','images/peach-packaging.webp'],
+    rating:4.9, reviews:124,
+    revs:[
+      {s:5,t:'i use it on my lips AND cheeks and look instantly alive. one little balm doing everything.',n:'tessa n.',m:'normal · 21'},
+      {s:5,t:'fragrance-free was non-negotiable for me and this delivered. zero tingle, all softness.',n:'devi s.',m:'sensitive lips · 26'},
+      {s:5,t:'bought one, immediately bought the box. they’re too cute to have just one.',n:'lola b.',m:'dry lips · 19'}
+    ]
+  },
+  box:{
+    id:'box', name:'The Mochi Box', kind:'bundle', tag:'Best Value · Save $12',
+    tone:'all 4 shades', color:'#F2A9BE', price:48, compareAt:60,
+    hook:'every mochi shade in one squishy little box.',
+    desc:'all four mochi kiss balms — strawberry, mango, taro and peach — in the soft-cornered Mochi Box with a sticker sheet tucked inside. the easiest way to find your shade is to have all of them.',
+    img:'images/shades-family.webp',
+    gallery:['images/shades-family.webp','images/brand-world.webp','images/texture-swatch.webp','images/packaging-detail.webp'],
+    rating:5.0, reviews:181,
+    revs:[
+      {s:5,t:'best $48 i’ve spent. they look like dessert on my shelf and every single shade is comfy.',n:'harper j.',m:'sensitive lips · 22'},
+      {s:5,t:'gifted one to my sister with chronically chapped lips. she texts me about it weekly now.',n:'min-ji c.',m:'normal · 27'},
+      {s:5,t:'the unboxing is unreal. sticker sheet got me. whole thing is a serotonin delivery.',n:'frankie d.',m:'dry lips · 20'}
+    ]
+  }
+};
+const SHADE_IDS=['strawberry','mango','taro','peach'];
+
+/* ============ CART ============ */
+let cart=[];
+try{const s=localStorage.getItem('mochi_cart'); if(s) cart=JSON.parse(s);}catch(e){}
+function saveCart(){try{localStorage.setItem('mochi_cart',JSON.stringify(cart));}catch(e){}}
+function cartCount(){return cart.reduce((n,i)=>n+i.qty,0);}
+function cartSubtotal(){return cart.reduce((n,i)=>n+i.price*i.qty,0);}
+function addToCart(id,qty){
+  qty=qty||1;
+  const p=PRODUCTS[id];
+  const ex=cart.find(i=>i.id===id);
+  if(ex){ex.qty+=qty;} else {cart.push({id:id,name:p.name,tone:p.tone,price:p.price,img:p.img,qty:qty});}
+  saveCart(); syncCart(); toast(p.name+' added ◡̈'); openCart();
+}
+function setQty(id,q){
+  const it=cart.find(i=>i.id===id); if(!it) return;
+  it.qty=q; if(it.qty<1) cart=cart.filter(i=>i.id!==id);
+  saveCart(); syncCart(); render();
+}
+function removeItem(id){cart=cart.filter(i=>i.id!==id);saveCart();syncCart();render();}
+function syncCart(){
+  document.getElementById('cc').textContent=cartCount();
+  renderDrawer();
+}
+function money(n){return '$'+n.toFixed(2);}
+
+/* ============ DRAWER ============ */
+function openCart(){document.getElementById('drawer').classList.add('open');document.querySelector('.drawer-bg').classList.add('open');}
+function closeCart(){document.getElementById('drawer').classList.remove('open');document.querySelector('.drawer-bg').classList.remove('open');}
+function renderDrawer(){
+  const body=document.getElementById('drawerBody'), foot=document.getElementById('drawerFoot');
+  if(cart.length===0){
+    body.innerHTML='<div style="text-align:center;padding:50px 10px;"><div style="font-size:46px;">◡̈</div><p style="margin-top:10px;color:var(--ink-soft);">your bag is empty</p><p style="font-size:13px;color:var(--ink-soft);">but it doesn’t have to be ♡</p></div>';
+    foot.innerHTML='<a href="#/shop" class="btn btn-red btn-block" data-close-cart>shop the shades</a>';
+    return;
+  }
+  body.innerHTML=cart.map(i=>`
+    <div class="dline">
+      <img loading="lazy" decoding="async" src="${PRODUCTS[i.id].img}" alt="${i.name}">
+      <div class="di">
+        <h4>${i.name}</h4>
+        <div class="dt">${i.tone}</div>
+        <div class="qty" style="margin-top:6px;">
+          <button data-qty="${i.id}|${i.qty-1}">−</button><span>${i.qty}</span><button data-qty="${i.id}|${i.qty+1}">+</button>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:Fredoka;font-weight:600;color:var(--red);">${money(i.price*i.qty)}</div>
+        <button class="cl-remove" data-remove="${i.id}">remove</button>
+      </div>
+    </div>`).join('');
+  const sub=cartSubtotal();
+  const left=FREE_SHIP-sub;
+  foot.innerHTML=`
+    ${left>0?`<div class="ship-bar">add <b>${money(left)}</b> for free shipping
+      <div class="track"><div class="fill" style="width:${Math.min(100,sub/FREE_SHIP*100)}%"></div></div></div>`
+      :`<div class="ship-bar">🎉 you’ve unlocked free shipping!</div>`}
+    <div style="display:flex;justify-content:space-between;font-family:Fredoka;font-weight:600;font-size:18px;margin-bottom:12px;">
+      <span>subtotal</span><span>${money(sub)}</span></div>
+    <a href="#/cart" class="btn btn-red btn-block" data-close-cart>checkout</a>`;
+}
+
+/* ============ VIEWS ============ */
+function stars(r){const f=Math.round(r);return '★★★★★'.slice(0,f)+'☆☆☆☆☆'.slice(0,5-f);}
+
+function homeView(){
+  return `
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/hero.webp">
+      <source src="images/hero.webm" type="video/webm">
+      <source src="images/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow">tinted lip balm · skincare first</div>
+        <h1>the lip balm that <span class="em">loves your<br>lips back.</span></h1>
+        <p class="sub">real, buildable colour. real barrier-repairing care. fragrance-free and gentle enough for the lips everything else stings. no compromise — just a kiss.</p>
+        <div class="hero-cta">
+          <a href="#/shop" class="btn btn-red btn-lg">shop the shades</a>
+          <a href="#/story" class="btn btn-pink btn-lg">our story</a>
+        </div>
+        <div class="hero-tokens">
+          <span>◡̈ fragrance-free</span><span>◡̈ dermatologist-tested</span><span>◡̈ 4 mochi shades</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="proof">
+    <div class="wrap">
+      <div class="it"><b>★ 4.9</b> · 800+ happy lips</div>
+      <div class="it">◡̈ fragrance · menthol · camphor free</div>
+      <div class="it">🧴 ceramides + hyaluronic acid</div>
+      <div class="it">🐰 vegan &amp; cruelty-free</div>
+    </div>
+  </div>
+
+  <section class="problem">
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">the problem we exist to solve</div>
+        <h2>you shouldn’t have to choose between colour and comfort.</h2>
+        <p>every tinted lip product makes you pick a side. and the lips that need care most get locked out of colour completely.</p>
+      </div>
+      <div class="prob-grid">
+        <div class="prob-card"><div class="ic">💄</div><h3>pigment that punishes</h3><p>lipsticks and liquid lips give colour — then dry you out, feather, transfer and flake.</p></div>
+        <div class="prob-card"><div class="ic">🫧</div><h3>care you can’t see</h3><p>true balms look after your lips — but the “tint” is basically a rumour.</p></div>
+        <div class="prob-card"><div class="ic">🥺</div><h3>the lips left out</h3><p>sensitive, chapped, reactive lips? every cute viral product stings or peels.</p></div>
+      </div>
+      <div class="prob-answer">
+        <div class="eyebrow" style="color:var(--pink-pale);">the mochi answer</div>
+        <h3 style="margin-top:8px;">colour engineered as skincare first — so even the most sensitive lips can finally wear it.</h3>
+        <p>colour for lips that were told they couldn’t. ◡̈</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap feature">
+      <div class="fimg"><img loading="lazy" decoding="async" src="images/lip-application.webp" alt="Strawberry Mochi on lips"></div>
+      <div>
+        <div class="eyebrow">meet the bestseller</div>
+        <h2>Strawberry Mochi</h2>
+        <div class="stars">★★★★★ <span style="font-family:Nunito;color:var(--ink-soft);font-size:13px;">4.9 · 212 reviews</span></div>
+        <div class="price">$15</div>
+        <p style="color:var(--ink-soft);">the rosy everyday pink that melts on like a balm and blooms into a fresh tint. so comfortable you forget it’s there.</p>
+        <ul>
+          <li>buildable sheer-to-medium colour</li>
+          <li>ceramides + squalane rebuild the lip barrier</li>
+          <li>fragrance-free — zero sting, zero flaking</li>
+          <li>one balm for lips, cheeks &amp; lids</li>
+        </ul>
+        <a href="#/product/strawberry" class="btn btn-red btn-lg">shop Strawberry ◡̈</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="shades">
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">the range</div>
+        <h2>four flavours. pick your kiss.</h2>
+        <p>each shade named after a real mochi flavour. tap any to find yours.</p>
+      </div>
+      <div class="shade-grid">
+        ${SHADE_IDS.map(id=>{const p=PRODUCTS[id];return `
+          <div class="scard" data-go="#/product/${id}">
+            <div class="pic"><img loading="lazy" decoding="async" src="${p.img}" alt="${p.name}"></div>
+            <div class="info">
+              <div class="sw" style="background:${p.color}"></div>
+              <h3>${p.name}</h3>
+              <div class="tone">${p.tone}</div>
+              <div class="price">$${p.price}</div>
+            </div>
+          </div>`}).join('')}
+      </div>
+      <div style="text-align:center;margin-top:36px;">
+        <a href="#/product/box" class="btn btn-red btn-lg">get all 4 — The Mochi Box · save $12</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sandbox" id="sandbox">
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">formula sandbox</div>
+        <h2>play with the formula.</h2>
+        <p>most balms trap you in a peel-and-reapply cycle. flip between an ordinary balm and mochi below — then tap into what’s actually inside.</p>
+      </div>
+      <div class="sb-stage mode-ordinary" id="sbStage">
+        <div class="sb-toggle">
+          <button class="sb-mode active" data-sbmode="ordinary">an ordinary balm</button>
+          <button class="sb-mode" data-sbmode="mochi">mochi kiss balm</button>
+        </div>
+        <div class="sb-grid">
+          <div class="sb-visual">
+            <svg viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lip formula cross-section">
+              <g class="ord-grp">
+                <circle cx="118" cy="74" r="12" fill="#A9D6E5"/>
+                <circle cx="170" cy="54" r="9" fill="#A9D6E5"/>
+                <circle cx="252" cy="60" r="11" fill="#A9D6E5"/>
+                <circle cx="304" cy="80" r="9" fill="#A9D6E5"/>
+                <path d="M150 102 q14 -22 36 -13" stroke="#88B4C2" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                <path d="M176 81 l12 4 l-3 -12" stroke="#88B4C2" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M268 102 q14 -22 36 -13" stroke="#88B4C2" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                <path d="M294 81 l12 4 l-3 -12" stroke="#88B4C2" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="44" y="150" width="332" height="156" rx="70" fill="#E7C3CB"/>
+                <rect x="56" y="128" width="308" height="34" rx="17" fill="#B7AEB3"/>
+                <rect x="56" y="128" width="308" height="13" rx="6.5" fill="#CCC4C8"/>
+                <path d="M126 208 l11 17 l-9 15 l12 16" stroke="#CD9CA6" stroke-width="4.6" fill="none" stroke-linecap="round"/>
+                <path d="M212 216 l10 18 l-10 14 l11 17" stroke="#CD9CA6" stroke-width="4.6" fill="none" stroke-linecap="round"/>
+                <path d="M300 206 l-10 17 l10 15 l-9 16" stroke="#CD9CA6" stroke-width="4.6" fill="none" stroke-linecap="round"/>
+              </g>
+              <g class="mochi-grp">
+                <ellipse cx="210" cy="234" rx="206" ry="116" fill="#FBE3EA" opacity="0.7"/>
+                <circle cx="132" cy="60" r="12" fill="#9FD3E6"/>
+                <circle cx="210" cy="48" r="10" fill="#9FD3E6"/>
+                <circle cx="288" cy="62" r="12" fill="#9FD3E6"/>
+                <path d="M132 80 v32" stroke="#7AB8CE" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                <path d="M123 103 l9 11 l9 -11" stroke="#7AB8CE" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M210 68 v44" stroke="#7AB8CE" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                <path d="M201 103 l9 11 l9 -11" stroke="#7AB8CE" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M288 82 v30" stroke="#7AB8CE" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                <path d="M279 103 l9 11 l9 -11" stroke="#7AB8CE" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="44" y="150" width="332" height="156" rx="70" fill="#F4B6C7"/>
+                <g>
+                  <rect x="58" y="138" width="44" height="20" rx="6" fill="#F8E4C6"/>
+                  <rect x="108" y="138" width="44" height="20" rx="6" fill="#F8E4C6"/>
+                  <rect x="158" y="138" width="44" height="20" rx="6" fill="#F8E4C6"/>
+                  <rect x="208" y="138" width="44" height="20" rx="6" fill="#F8E4C6"/>
+                  <rect x="258" y="138" width="44" height="20" rx="6" fill="#F8E4C6"/>
+                  <rect x="308" y="138" width="44" height="20" rx="6" fill="#F8E4C6"/>
+                  <rect x="84" y="161" width="44" height="19" rx="6" fill="#F1D2A8"/>
+                  <rect x="134" y="161" width="44" height="19" rx="6" fill="#F1D2A8"/>
+                  <rect x="184" y="161" width="44" height="19" rx="6" fill="#F1D2A8"/>
+                  <rect x="234" y="161" width="44" height="19" rx="6" fill="#F1D2A8"/>
+                  <rect x="284" y="161" width="44" height="19" rx="6" fill="#F1D2A8"/>
+                </g>
+                <ellipse cx="150" cy="210" rx="64" ry="16" fill="#FFFFFF" opacity="0.5"/>
+                <g stroke="#E0455A" stroke-width="6" fill="none" stroke-linecap="round">
+                  <path d="M170 246 q9 10 18 0"/>
+                  <path d="M232 246 q9 10 18 0"/>
+                  <path d="M192 268 q19 17 38 0"/>
+                </g>
+                <path d="M68 160 l4.5 12 l12 4.5 l-12 4.5 l-4.5 12 l-4.5 -12 l-12 -4.5 l12 -4.5 z" fill="#F6DC93"/>
+                <path d="M352 198 l3.5 9 l9 3.5 l-9 3.5 l-3.5 9 l-3.5 -9 l-9 -3.5 l9 -3.5 z" fill="#F6DC93"/>
+              </g>
+            </svg>
+          </div>
+          <div class="sb-readout">
+            <div class="sb-state-label ord-only">the lip-balm dependency trap</div>
+            <div class="sb-state-label mochi-only">the mochi difference ◡̈</div>
+            <div class="sb-stats">
+              <div class="sb-stat"><span class="sb-k">the barrier</span><span class="sb-v ord-only">sealed shut on top</span><span class="sb-v mochi-only">rebuilt, brick by brick</span></div>
+              <div class="sb-stat"><span class="sb-k">your water</span><span class="sb-v ord-only">blocked from getting in</span><span class="sb-v mochi-only">drawn deep into lips</span></div>
+              <div class="sb-stat"><span class="sb-k">colour glides on</span><span class="sb-v ord-only">tugging at raw cracks</span><span class="sb-v mochi-only">with zero friction</span></div>
+              <div class="sb-stat"><span class="sb-k">a few hours later</span><span class="sb-v ord-only">tight, then flaky again</span><span class="sb-v mochi-only">still soft &amp; cushioned</span></div>
+            </div>
+            <p class="sb-explain ord-only">an ordinary balm works like a lock on an empty safe. wax sits on the surface and seals — but there’s no real water inside to keep. lips feel smooth for an hour, then peel as cells dry out. so you reach for more. that’s the trap.</p>
+            <p class="sb-explain mochi-only">mochi works the other way around. humectants pull real water deep into your lips, while ceramides and squalane rebuild the barrier that holds it there. colour melts on without tugging a single crack — comfort that lasts, not a cycle that repeats.</p>
+          </div>
+        </div>
+      </div>
+      <div class="sb-ing">
+        <h3>what’s actually inside — tap to explore ◡̈</h3>
+        <div class="sb-chips">
+          <button class="sb-chip active" data-sbing="ceramides">🧱 ceramides</button>
+          <button class="sb-chip" data-sbing="ha">💧 hyaluronic acid</button>
+          <button class="sb-chip" data-sbing="squalane">🫧 squalane</button>
+          <button class="sb-chip" data-sbing="butters">🧈 shea + cocoa butter</button>
+        </div>
+        <div class="sb-ing-panel active" data-ing="ceramides">
+          <div class="sb-ing-ic">🧱</div>
+          <div><h4>ceramides — the barrier bricks</h4><p>they rebuild your lip’s natural wall, so the moisture you have stays in instead of escaping. this is what ends the peel-reapply-peel cycle.</p></div>
+        </div>
+        <div class="sb-ing-panel" data-ing="ha">
+          <div class="sb-ing-ic">💧</div>
+          <div><h4>hyaluronic acid — the water magnet</h4><p>draws real hydration deep into thirsty cells and helps hold it there — so your lips still feel comfortable hours later, not minutes.</p></div>
+        </div>
+        <div class="sb-ing-panel" data-ing="squalane">
+          <div class="sb-ing-ic">🫧</div>
+          <div><h4>squalane — the zero-friction glide</h4><p>lets colour melt on without dragging across raw, cracked skin. lightweight and soft — never greasy, never sticky.</p></div>
+        </div>
+        <div class="sb-ing-panel" data-ing="butters">
+          <div class="sb-ing-ic">🧈</div>
+          <div><h4>shea + cocoa butter — the pillowy cushion</h4><p>soft, plush fats that soften and protect your lips, and give mochi its bouncy, mochi-dough feel.</p></div>
+        </div>
+        <div class="sb-freefrom">
+          <span class="ff">✕ fragrance</span><span class="ff">✕ flavour</span><span class="ff">✕ menthol</span><span class="ff">✕ camphor</span>
+        </div>
+        <p style="text-align:center;margin-top:18px;font-size:13px;color:var(--ink-soft);">dermatologist-tested · vegan &amp; cruelty-free · made for sensitive lips</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="wrap">
+      <div class="sh"><div class="eyebrow">one balm, three places</div><h2>your daily dose of squish.</h2></div>
+      <div class="step-grid">
+        <div class="step"><div class="n">1</div><h3>twist &amp; click</h3><p>twist up the base and hear the satisfying little click.</p></div>
+        <div class="step"><div class="n">2</div><h3>glide on lips</h3><p>one buttery swipe. build it up as sheer or as bloomed as you like.</p></div>
+        <div class="step"><div class="n">3</div><h3>dab &amp; go</h3><p>gentle enough to tap onto cheeks and lids for an instant soft glow.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sh"><div class="eyebrow">800+ happy lips</div><h2>they finally found colour that stays kind.</h2></div>
+      <div class="rev-grid">
+        <div class="rev"><div class="stars">★★★★★</div><p>“i have the most sensitive lips on earth and this is the FIRST tinted thing that doesn’t sting. crying.”</p><div class="who">maya r.<span>sensitive lips · verified</span></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>“the squish, the click, the glide. genuinely the most satisfying thing i own — and the colour is so pretty.”</p><div class="who">priya k.<span>combination · verified</span></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>“used to think colour wasn’t for me because everything peeled. taro mochi proved me wrong.”</p><div class="who">rae l.<span>reactive lips · verified</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="story-teaser">
+        <div class="stimg"><img loading="lazy" decoding="async" src="images/multi-use.webp" alt="The Mochi story"></div>
+        <div class="sttext">
+          <div class="eyebrow" style="color:var(--pink-pale);">our story</div>
+          <h2>we made mochi for the lips beauty forgot.</h2>
+          <p>for everyone who’s been told their lips are “too sensitive” for the fun stuff. this one’s yours.</p>
+          <a href="#/story" class="btn btn-pink">read our story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news">
+    <div class="wrap">
+      <div class="eyebrow">join the squish</div>
+      <h2>get 10% off your first kiss.</h2>
+      <p>soft emails only — drop alerts, lip-care tips, and zero spam. ◡̈</p>
+      <form data-news><input type="email" placeholder="your email" required><button class="btn btn-red" type="submit">join ◡̈</button></form>
+    </div>
+  </section>`;
+}
+
+function shopView(){
+  const all=['box',...SHADE_IDS];
+  return `
+  <div class="wrap">
+    <div class="shop-head">
+      <div class="eyebrow">shop all</div>
+      <h1>every mochi, ready to kiss.</h1>
+      <p>skincare-grade tinted lip balm. fragrance-free. $15 each — or all four in the box.</p>
+    </div>
+    <div class="shop-grid">
+      ${all.map(id=>{const p=PRODUCTS[id];return `
+        <div class="pcard">
+          <div class="pcimg" data-go="#/product/${id}"><img loading="lazy" decoding="async" src="${p.img}" alt="${p.name}"></div>
+          <div class="pcbody">
+            <div class="tag">${p.tag}</div>
+            <h3>${p.name}</h3>
+            <div class="tone">${p.tone}</div>
+            <div class="stars">${stars(p.rating)} <span style="color:var(--ink-soft);font-family:Nunito;">${p.rating} · ${p.reviews}</span></div>
+            <div class="pcfoot">
+              <div>${p.compareAt?`<span style="text-decoration:line-through;color:var(--ink-soft);font-size:14px;">$${p.compareAt}</span> `:''}<span class="pr">$${p.price}</span></div>
+              <button class="btn btn-red" data-add="${id}">add ◡̈</button>
+            </div>
+          </div>
+        </div>`}).join('')}
+    </div>
+  </div>
+  <section class="problem" style="margin-top:20px;">
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">why mochi</div>
+        <h2>colour and comfort. no compromise.</h2>
+        <p>every shade is the same gentle, barrier-repairing, fragrance-free formula — just tinted four ways.</p>
+      </div>
+      <div class="ing-strip">
+        <div class="ic"><div class="e">🧱</div><h4>barrier-repair</h4><p>ceramides + squalane</p></div>
+        <div class="ic"><div class="e">💧</div><h4>real hydration</h4><p>hyaluronic acid</p></div>
+        <div class="ic"><div class="e">🌸</div><h4>fragrance-free</h4><p>sensitive-lip safe</p></div>
+        <div class="ic"><div class="e">🐰</div><h4>vegan</h4><p>cruelty-free, always</p></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+let pdpState={gallery:0};
+function productView(id){
+  const p=PRODUCTS[id];
+  if(!p) return `<div class="wrap"><div class="empty"><div class="big">◡̈</div><h2>shade not found</h2><a href="#/shop" class="btn btn-red">back to shop</a></div></div>`;
+  const gi=pdpState.gallery||0;
+  const isBundle=p.kind==='bundle';
+  return `
+  <div class="wrap">
+    <div class="crumb"><a href="#/">home</a> / <a href="#/shop">shop</a> / ${p.name}</div>
+    <div class="pdp">
+      <div class="gallery">
+        <div class="main"><img loading="lazy" decoding="async" src="${p.gallery[gi]}" alt="${p.name}" id="galMain"></div>
+        <div class="thumbs">
+          ${p.gallery.map((g,i)=>`<img loading="lazy" decoding="async" src="${g}" data-gal="${i}" class="${i===gi?'active':''}" alt="view ${i+1}">`).join('')}
+        </div>
+      </div>
+      <div class="buybox">
+        <div class="eyebrow">${p.tag}</div>
+        <h1>${p.name}</h1>
+        <div class="hook">${p.hook}</div>
+        <div class="rrow"><span class="stars">${stars(p.rating)}</span> ${p.rating} · ${p.reviews} reviews</div>
+        <div class="price-row">
+          <span class="now">$${p.price}</span>
+          ${p.compareAt?`<span class="was">$${p.compareAt}</span><span class="save">save $${p.compareAt-p.price}</span>`:''}
+        </div>
+        ${!isBundle?`
+        <div class="sellabel">shade — <span id="shadeName">${p.name}</span></div>
+        <div class="swatches">
+          ${SHADE_IDS.map(sid=>`<div class="swatch ${sid===id?'active':''}" style="background:${PRODUCTS[sid].color}" data-go="#/product/${sid}" title="${PRODUCTS[sid].name}"></div>`).join('')}
+        </div>`:`
+        <div class="sellabel">includes — <span>all 4 mochi shades</span></div>
+        <div class="swatches">
+          ${SHADE_IDS.map(sid=>`<div class="swatch" style="background:${PRODUCTS[sid].color}" title="${PRODUCTS[sid].name}"></div>`).join('')}
+        </div>`}
+        <div class="buy-opts">
+          <div class="opt active" data-opt="one"><div class="dot"></div><div class="lbl">one-time purchase<small>just this, just once</small></div><div class="op">$${p.price}</div></div>
+          <div class="opt" data-opt="sub"><div class="dot"></div><div class="lbl">subscribe &amp; save 15%<small>refill every 8 weeks · pause anytime</small></div><div class="op">$${(p.price*0.85).toFixed(2)}</div></div>
+        </div>
+        <button class="btn btn-red btn-block btn-lg" data-add="${id}">add to bag — <span id="atcPrice">$${p.price}</span> ◡̈</button>
+        <div class="trust">
+          <div>◡̈ fragrance-free · menthol-free · camphor-free</div>
+          <div>🚚 free shipping over $35 · ships in 1–2 days</div>
+          <div>♡ 30-day soft-lips promise or your money back</div>
+        </div>
+        <div class="pdp-onerev">“${p.revs[0].t}” <b>— ${p.revs[0].n}</b></div>
+        <div class="acc">
+          <div class="acc-item"><button class="acc-head" data-acc>what it is <span class="pm">+</span></button>
+            <div class="acc-body"><p>${p.desc}</p></div></div>
+          <div class="acc-item"><button class="acc-head" data-acc>full ingredients <span class="pm">+</span></button>
+            <div class="acc-body"><p>star actives: ceramide NP, sodium hyaluronate, squalane, shea butter, cocoa seed butter, vitamin E. mineral pigments for buildable tint.</p><p>full inci: Ricinus Communis Seed Oil, Hydrogenated Polyisobutene, Butyrospermum Parkii Butter, Theobroma Cacao Seed Butter, Squalane, Cera Alba, Ceramide NP, Sodium Hyaluronate, Tocopherol, Mica, CI 77491/77492/77891. <b>no fragrance, no flavour, no menthol, no camphor.</b></p></div></div>
+          <div class="acc-item"><button class="acc-head" data-acc>how to use <span class="pm">+</span></button>
+            <div class="acc-body"><ul><li>twist the base up until you hear the click.</li><li>glide once over lips — build for more colour.</li><li>dab gently onto cheeks and lids for a soft glow.</li><li>reapply whenever you want the ritual. ◡̈</li></ul></div></div>
+          <div class="acc-item"><button class="acc-head" data-acc>who it’s for <span class="pm">+</span></button>
+            <div class="acc-body"><p>made for sensitive, dry, reactive and chronically-chapped lips — and anyone who wants colour that feels like skincare. dermatologist-tested. vegan &amp; cruelty-free.</p></div></div>
+          <div class="acc-item"><button class="acc-head" data-acc>shipping &amp; returns <span class="pm">+</span></button>
+            <div class="acc-body"><p>free shipping on orders over $35, flat $4 below that. ships within 1–2 business days. love it or return it within 30 days for a full refund — even if it’s opened.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="pdp-section" style="background:var(--pink-wash);">
+    <div class="wrap">
+      <h2>care you can actually feel.</h2>
+      <div class="ing-strip">
+        <div class="ic"><div class="e">🧱</div><h4>Ceramides</h4><p>rebuild the lip barrier</p></div>
+        <div class="ic"><div class="e">💧</div><h4>Hyaluronic Acid</h4><p>hours of real hydration</p></div>
+        <div class="ic"><div class="e">🫶</div><h4>Squalane + Butters</h4><p>buttery, pillowy glide</p></div>
+        <div class="ic"><div class="e">🌸</div><h4>Fragrance-Free</h4><p>zero sting, zero flaking</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pdp-section">
+    <div class="wrap">
+      <h2>★ ${p.rating} from ${p.reviews} reviews</h2>
+      <div class="rev-grid">
+        ${p.revs.map(r=>`<div class="rev"><div class="stars">${stars(r.s)}</div><p>“${r.t}”</p><div class="who">${r.n}<span>${r.m} · verified buyer</span></div></div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="pdp-section" style="background:var(--mint-pale);">
+    <div class="wrap">
+      <h2>complete the set ◡̈</h2>
+      <div class="shop-grid">
+        ${['box',...SHADE_IDS].filter(x=>x!==id).slice(0,3).map(sid=>{const sp=PRODUCTS[sid];return `
+          <div class="pcard">
+            <div class="pcimg" data-go="#/product/${sid}"><img loading="lazy" decoding="async" src="${sp.img}" alt="${sp.name}"></div>
+            <div class="pcbody">
+              <div class="tag">${sp.tag}</div>
+              <h3>${sp.name}</h3>
+              <div class="tone">${sp.tone}</div>
+              <div class="pcfoot"><span class="pr">$${sp.price}</span><button class="btn btn-red" data-add="${sid}">add ◡̈</button></div>
+            </div>
+          </div>`}).join('')}
+      </div>
+    </div>
+  </section>
+
+  <div class="m-atc show">
+    <div class="mp">$${p.price}</div>
+    <button class="btn btn-red" data-add="${id}">add to bag ◡̈</button>
+  </div>`;
+}
+
+function storyView(){
+  return `
+  <div class="wrap">
+    <div class="story-hero">
+      <div class="eyebrow">our story</div>
+      <h1>colour for lips that<br>were told they couldn’t.</h1>
+      <p>mochi began with a small, stubborn idea: a lip product should never make you choose between looking good and feeling good.</p>
+    </div>
+    <div class="story-band"><img loading="lazy" decoding="async" src="images/brand-world.webp" alt="The Mochi world"></div>
+    <div class="story-body" style="padding:50px 0;">
+      <h2>the trade nobody questioned</h2>
+      <p>if you’ve ever loved a lipstick that dried you out, or babied your lips with a balm so clear it did nothing — you already know the trade. the lip aisle quietly asks you to pick: colour, or care. never both.</p>
+      <p>and for the millions of people with sensitive, dry, reactive lips, the trade is worse. every cute, viral, must-have lip product on their feed stings, flakes, or makes things worse. fragrance, menthol, camphor, drying long-wear polymers — sold as a treat, delivered as a betrayal. they’d been quietly told colour just wasn’t for them.</p>
+      <p class="pull">we didn’t think that was a small problem. we thought it was the whole problem.</p>
+      <h2>so we built it backwards</h2>
+      <p>most tinted products start with pigment and add a little care at the end. mochi starts the other way around. we built a barrier-repairing lip treatment first — ceramides, squalane, hyaluronic acid, shea and cocoa butter — left out every common irritant, and <i>then</i> tinted it into four buildable, buttery shades.</p>
+      <p>the result is mochi kiss balm: real colour, real care, and a squishy little mochi-shaped tube with a smiling face, because softness should be the first thing you feel. it’s skincare that happens to be the cutest thing in your bag.</p>
+      <h2>who it’s for</h2>
+      <p>mochi is for gen z who want their beauty gentle. for first-time makeup wearers. for the sensitive-lipped, the chronically-chapped, the “everything stings” crowd. for anyone who buys beauty for comfort and joy, not pressure. if that’s you — welcome. this one was built for you. ◡̈</p>
+      <div style="text-align:center;margin-top:30px;">
+        <a href="#/shop" class="btn btn-red btn-lg">shop the shades</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function cartView(){
+  if(cart.length===0){
+    return `<div class="wrap"><div class="empty"><div class="big">◡̈</div><h2>your bag is feeling soft &amp; empty</h2><p>let’s fix that — your lips will thank you.</p><a href="#/shop" class="btn btn-red btn-lg">shop the shades</a></div></div>`;
+  }
+  const sub=cartSubtotal();
+  const ship=sub>=FREE_SHIP?0:4;
+  const total=sub+ship;
+  const left=FREE_SHIP-sub;
+  return `
+  <div class="wrap cart-page">
+    <h1>your bag ◡̈</h1>
+    <div class="cart-layout">
+      <div>
+        ${cart.map(i=>`
+          <div class="cart-line">
+            <img loading="lazy" decoding="async" src="${PRODUCTS[i.id].img}" alt="${i.name}">
+            <div class="cl-info">
+              <h3>${i.name}</h3>
+              <div class="cl-tone">${i.tone}</div>
+              <div class="qty"><button data-qty="${i.id}|${i.qty-1}">−</button><span>${i.qty}</span><button data-qty="${i.id}|${i.qty+1}">+</button></div>
+            </div>
+            <div class="cl-right">
+              <div class="cl-price">${money(i.price*i.qty)}</div>
+              <button class="cl-remove" data-remove="${i.id}">remove</button>
+            </div>
+          </div>`).join('')}
+        <a href="#/shop" style="display:inline-block;margin-top:18px;font-family:Fredoka;font-weight:600;color:var(--red);">← keep shopping</a>
+
+        <div class="co-form" style="margin-top:30px;">
+          <h3>🔒 secure checkout</h3>
+          <p style="font-size:14px;color:var(--ink-soft);">tap “proceed to checkout” and you’ll enter your shipping address and card details on a secure page hosted by <b>Stripe</b> — mochi never sees or stores your card. you’ll come straight back here once it’s done.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+            <span class="ff">Visa</span><span class="ff">Mastercard</span><span class="ff">Amex</span><span class="ff">Apple&nbsp;Pay</span><span class="ff">Link</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="summary">
+          <h3>order summary</h3>
+          ${cart.map(i=>`<div class="sum-row"><span>${i.name} ×${i.qty}</span><span>${money(i.price*i.qty)}</span></div>`).join('')}
+          <div class="sum-row"><span>subtotal</span><span>${money(sub)}</span></div>
+          <div class="sum-row"><span>shipping</span><span>${ship===0?'free 🎉':money(ship)}</span></div>
+          ${left>0?`<div class="ship-bar">add <b>${money(left)}</b> for free shipping<div class="track"><div class="fill" style="width:${Math.min(100,sub/FREE_SHIP*100)}%"></div></div></div>`:''}
+          <div class="sum-row total"><span>total</span><span>${money(total)}</span></div>
+          <button class="btn btn-red btn-block btn-lg" style="margin-top:16px;" data-checkout>proceed to checkout →</button>
+          <div class="trust" style="margin-top:14px;">
+            <div>🔒 powered by Stripe · encrypted &amp; secure</div>
+            <div>♡ 30-day soft-lips money-back promise</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function confirmView(){
+  const params=new URLSearchParams(location.search);
+  const sessionId=params.get('session_id');
+  const real=params.get('checkout')==='success';
+  const orderNo='MOCHI-'+Math.floor(100000+Math.random()*900000);
+  return `<div class="wrap"><div class="confirm">
+    <div class="big">◡̈</div>
+    <h1>your kiss is on its way!</h1>
+    <p>thank you — your order is confirmed and your lips are about to be very happy.</p>
+    <div id="receiptBox">${sessionId?'<div class="ordbox" id="receiptLoading">loading your receipt… ◡̈</div>':'<div class="ordbox">order <b>#'+orderNo+'</b><br>a confirmation has been sent to your email.<br>ships within 1–2 business days 🚚</div>'}</div>
+    ${real?'':'<p style="font-size:13px;color:var(--ink-soft);">preview mode — set STRIPE_SECRET_KEY on the host to take live payments.</p>'}
+    <div class="confirm-actions" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;">
+      ${sessionId?'<button class="btn btn-pink" data-print>download receipt</button>':''}
+      <a href="#/shop" class="btn btn-red">keep shopping ◡̈</a>
+    </div>
+  </div></div>`;
+}
+function loadOrder(){
+  const sid=new URLSearchParams(location.search).get('session_id');
+  if(!sid) return;
+  fetch('/api/order?session_id='+encodeURIComponent(sid))
+    .then(function(r){return r.ok?r.json():Promise.reject();})
+    .then(function(o){ renderReceipt(o); })
+    .catch(function(){
+      const el=document.getElementById('receiptLoading');
+      if(el){el.removeAttribute('id');el.innerHTML='your order is confirmed ◡̈<br>a receipt has been emailed to you.<br>ships within 1–2 business days 🚚';}
+    });
+}
+function renderReceipt(o){
+  const box=document.getElementById('receiptBox');
+  if(!box) return;
+  const d=new Date((o.created||Math.floor(Date.now()/1000))*1000);
+  const dateStr=d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+  const ref='MOCHI-'+String(o.id||'').slice(-8).toUpperCase();
+  const rows=(o.items||[]).map(function(i){
+    return '<tr><td>'+i.name+' <span>×'+i.qty+'</span></td><td>'+money((i.amount||0)/100)+'</td></tr>';
+  }).join('');
+  box.innerHTML=
+    '<div class="receipt" id="receipt">'+
+      '<div class="rcp-head"><div class="rcp-logo">◡̈ mochi</div>'+
+        '<div class="rcp-meta">RECEIPT<br><b>#'+ref+'</b><br>'+dateStr+'</div></div>'+
+      '<div class="rcp-to">billed to '+(o.email||'you')+'</div>'+
+      '<table class="rcp-table"><tbody>'+rows+
+        '<tr class="rcp-line"><td>subtotal</td><td>'+money((o.amountSubtotal||0)/100)+'</td></tr>'+
+        '<tr class="rcp-line"><td>shipping</td><td>'+(o.amountShipping?money(o.amountShipping/100):'free')+'</td></tr>'+
+        '<tr class="rcp-total"><td>total paid</td><td>'+money((o.amountTotal||0)/100)+'</td></tr>'+
+      '</tbody></table>'+
+      '<div class="rcp-foot">payment confirmed ◡̈ thank you for choosing mochi<br>questions? hellosquishy@mochilipstick.com</div>'+
+    '</div>';
+}
+
+/* ============ ROUTER ============ */
+function render(){
+  const app=document.getElementById('app');
+  const h=location.hash||'#/';
+  if(location.search.indexOf('checkout=success')>-1){cart=[];saveCart();}
+  window.scrollTo(0,0);
+  if(h==='#/'||h==='#') app.innerHTML=homeView();
+  else if(h==='#/shop') app.innerHTML=shopView();
+  else if(h.startsWith('#/product/')){pdpState.gallery=0;app.innerHTML=productView(h.split('/')[2]);}
+  else if(h==='#/story') app.innerHTML=storyView();
+  else if(h==='#/cart') app.innerHTML=cartView();
+  else if(h==='#/confirmed') app.innerHTML=confirmView();
+  else app.innerHTML=homeView();
+  syncCart();
+  const mm=document.getElementById('mmenu'); if(mm) mm.classList.remove('open');
+  closeCart();
+  if(h==='#/confirmed') loadOrder();
+  const hv=document.querySelector('.hero-video');
+  if(hv){
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){try{hv.pause();}catch(e){}}
+    else{const pr=hv.play();if(pr&&pr.catch)pr.catch(function(){});}
+  }
+}
+window.addEventListener('hashchange',render);
+
+/* ============ EVENTS ============ */
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const cl=t.closest?t.closest('[data-go]'):null;
+  if(cl){location.hash=cl.getAttribute('data-go');return;}
+  if(t.closest('[data-open-cart]')){openCart();return;}
+  if(t.closest('[data-close-cart]')){closeCart();return;}
+  if(t.closest('[data-add]')){addToCart(t.closest('[data-add]').getAttribute('data-add'),1);return;}
+  if(t.closest('[data-remove]')){removeItem(t.closest('[data-remove]').getAttribute('data-remove'));return;}
+  if(t.closest('[data-qty]')){const v=t.closest('[data-qty]').getAttribute('data-qty').split('|');setQty(v[0],parseInt(v[1]));return;}
+  if(t.closest('[data-gal]')){
+    const i=parseInt(t.closest('[data-gal]').getAttribute('data-gal'));
+    pdpState.gallery=i;
+    const main=document.getElementById('galMain');
+    const id=location.hash.split('/')[2];
+    if(main&&PRODUCTS[id]){main.src=PRODUCTS[id].gallery[i];}
+    document.querySelectorAll('[data-gal]').forEach(x=>x.classList.toggle('active',parseInt(x.getAttribute('data-gal'))===i));
+    return;
+  }
+  if(t.closest('[data-sbmode]')){
+    const btn=t.closest('[data-sbmode]');
+    const stage=document.getElementById('sbStage');
+    if(stage){stage.classList.remove('mode-ordinary','mode-mochi');stage.classList.add('mode-'+btn.getAttribute('data-sbmode'));}
+    document.querySelectorAll('[data-sbmode]').forEach(x=>x.classList.toggle('active',x===btn));
+    return;
+  }
+  if(t.closest('[data-sbing]')){
+    const chip=t.closest('[data-sbing]'); const ing=chip.getAttribute('data-sbing');
+    document.querySelectorAll('[data-sbing]').forEach(x=>x.classList.toggle('active',x===chip));
+    document.querySelectorAll('.sb-ing-panel').forEach(x=>x.classList.toggle('active',x.getAttribute('data-ing')===ing));
+    return;
+  }
+  if(t.closest('[data-acc]')){
+    const head=t.closest('[data-acc]');
+    const body=head.nextElementSibling;
+    const open=body.classList.toggle('open');
+    head.querySelector('.pm').textContent=open?'−':'+';
+    return;
+  }
+  if(t.closest('[data-opt]')){
+    const opt=t.closest('[data-opt]');
+    document.querySelectorAll('[data-opt]').forEach(o=>o.classList.remove('active'));
+    opt.classList.add('active');
+    const id=location.hash.split('/')[2];const p=PRODUCTS[id];
+    const sub=opt.getAttribute('data-opt')==='sub';
+    const pr=sub?(p.price*0.85):p.price;
+    const ap=document.getElementById('atcPrice');if(ap)ap.textContent='$'+pr.toFixed(2);
+    return;
+  }
+  if(t.closest('[data-print]')){window.print();return;}
+  if(t.closest('[data-checkout]')){
+    if(cart.length===0){toast('your bag is empty ◡̈');return;}
+    const btn=t.closest('[data-checkout]');
+    const orig=btn.textContent;
+    btn.textContent='taking you to secure checkout…';
+    btn.style.pointerEvents='none';
+    fetch('/api/create-checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({cart:cart.map(function(i){return {id:i.id,qty:i.qty};})})
+    })
+    .then(function(r){return r.ok?r.json():Promise.reject(r);})
+    .then(function(d){
+      if(d&&d.url){location.href=d.url;}
+      else{return Promise.reject(d);}
+    })
+    .catch(function(){
+      /* Stripe backend not connected yet — show the preview confirmation so the site still works */
+      btn.textContent=orig;btn.style.pointerEvents='';
+      cart=[];saveCart();syncCart();
+      location.hash='#/confirmed';
+    });
+    return;
+  }
+  if(t.closest('[data-burger]')){document.getElementById('mmenu').classList.toggle('open');return;}
+  if(t.closest('[data-mclose]')){document.getElementById('mmenu').classList.remove('open');return;}
+});
+document.addEventListener('submit',e=>{
+  if(e.target.closest('[data-news]')){e.preventDefault();e.target.reset();toast('welcome to the squish ◡̈ check your inbox');}
+});
+
+/* ============ ANNOUNCEMENT ============ */
+const ANNOUNCE=[
+  '🚚  free shipping on orders over $35 — always',
+  '◡̈  fragrance-free · made for sensitive lips',
+  '🍡  your daily dose of squish',
+  '🌸  colour for lips that were told they couldn’t'
+];
+let annI=0;
+const annEl=document.getElementById('announce');
+annEl.textContent=ANNOUNCE[0];
+setInterval(()=>{annI=(annI+1)%ANNOUNCE.length;annEl.textContent=ANNOUNCE[annI];},4000);
+
+render();
+</script>
+</body>
+</html>

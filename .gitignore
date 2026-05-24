@@ -1,0 +1,5 @@
+node_modules
+.railway
+*.log
+images/*.png
+images/product-pink-alt.jpg
