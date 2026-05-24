@@ -84,8 +84,9 @@
   /* PROBLEM */
   .problem{background:var(--pink-wash);}
   .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:36px;}
-  .prob-card{background:#fff;border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow);}
-  .prob-card .ic{font-size:30px;margin-bottom:12px;}
+  .prob-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+  .prob-card .ic-img{width:100%;aspect-ratio:16/11;object-fit:cover;display:block;}
+  .prob-card .pc-body{padding:24px 26px 30px;}
   .prob-card h3{font-size:19px;margin-bottom:8px;}
   .prob-card p{font-size:14.5px;color:var(--ink-soft);}
   .prob-answer{background:var(--red);color:#fff;border-radius:var(--radius);padding:44px;text-align:center;}
@@ -270,15 +271,74 @@
   .pcard .pcfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;}
   .pcard .pcfoot .pr{font-family:'Fredoka';font-weight:600;font-size:19px;color:var(--red);}
 
-  /* STORY PAGE */
-  .story-hero{text-align:center;padding:60px 0 40px;}
-  .story-hero h1{font-size:clamp(34px,5vw,56px);margin:14px 0;}
-  .story-hero p{color:var(--ink-soft);font-size:18px;max-width:600px;margin:0 auto;}
-  .story-band img{width:100%;height:420px;object-fit:cover;border-radius:var(--radius);}
-  .story-body{max-width:720px;margin:0 auto;}
-  .story-body h2{font-size:26px;margin:34px 0 10px;}
-  .story-body p{font-size:16.5px;margin-bottom:14px;}
-  .story-body .pull{font-family:'Fredoka';font-weight:500;font-size:24px;color:var(--red);border-left:4px solid var(--pink);padding-left:22px;margin:24px 0;}
+  /* ABOUT PAGE */
+  .ab-cap{text-align:center;max-width:760px;margin:0 auto;}
+  .ab-cap h1{font-size:clamp(36px,5.6vw,66px);font-weight:600;margin:14px 0 14px;}
+  .ab-cap h1 .em{color:var(--red);}
+  .ab-cap p{color:var(--ink-soft);font-size:18px;max-width:560px;margin:0 auto;}
+  .ab-herowrap{margin-top:42px;}
+  .ab-herowrap img{width:100%;height:clamp(300px,46vw,560px);object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow);}
+
+  .ab-founder{display:grid;grid-template-columns:.82fr 1.18fr;gap:54px;align-items:center;}
+  .ab-founder>img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow);}
+  .ab-note h2{font-size:clamp(25px,3vw,35px);margin:12px 0 16px;}
+  .ab-note p{font-size:16.5px;margin-bottom:13px;}
+  .ab-sign{font-family:'Fredoka';font-weight:600;font-size:22px;color:var(--red);margin-top:20px;}
+  .ab-sign small{display:block;font-family:'Fredoka';font-weight:500;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;}
+
+  .ab-split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;}
+  .ab-split>img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow);}
+  .ab-split.rev .ab-imcol{order:2;}
+  .ab-split h2{font-size:clamp(25px,3.4vw,38px);margin:12px 0 16px;}
+  .ab-split p{font-size:16.5px;color:var(--ink-soft);margin-bottom:14px;}
+
+  .ab-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .ab-pillar{background:#fff;border-radius:var(--radius);padding:34px 28px;box-shadow:var(--shadow);}
+  .ab-pillar .pn{font-family:'Fredoka';font-weight:700;font-size:14px;letter-spacing:.1em;color:var(--red);}
+  .ab-pillar h3{font-size:21px;margin:8px 0 10px;}
+  .ab-pillar p{font-size:14.8px;color:var(--ink-soft);}
+  .ab-pillar .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px;}
+  .ab-pillar .tags span{background:var(--pink-wash);font-family:'Fredoka';font-weight:600;font-size:12px;padding:5px 11px;border-radius:999px;}
+
+  .ab-ings{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .ab-ing{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+  .ab-ing img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+  .ab-ing .ig-b{padding:20px 22px 24px;}
+  .ab-ing h3{font-size:17.5px;margin-bottom:6px;}
+  .ab-ing p{font-size:13.8px;color:var(--ink-soft);}
+
+  .ab-board{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+  .ab-doc{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;}
+  .ab-doc img{width:42%;object-fit:cover;flex-shrink:0;}
+  .ab-doc .doc-b{padding:28px 26px;}
+  .ab-doc h3{font-size:20px;}
+  .ab-doc .role{font-family:'Fredoka';font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin:4px 0 12px;}
+  .ab-doc p{font-size:14px;color:var(--ink-soft);}
+
+  .ab-commit{background:var(--mint-pale);border-radius:var(--radius);padding:46px;margin-top:40px;}
+  .ab-commit .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 32px;}
+  .ab-commit .ci{display:flex;gap:13px;align-items:flex-start;}
+  .ab-commit .ci .ck{font-size:22px;line-height:1;flex-shrink:0;}
+  .ab-commit .ci h4{font-size:16px;margin-bottom:3px;}
+  .ab-commit .ci p{font-size:13.3px;color:var(--ink-soft);}
+
+  .ab-cta{text-align:center;background:var(--red);color:#fff;border-radius:var(--radius);padding:60px 40px;}
+  .ab-cta h2{font-size:clamp(25px,3.4vw,38px);font-weight:500;max-width:680px;margin:10px auto 12px;}
+  .ab-cta p{opacity:.92;font-size:16px;margin-bottom:24px;}
+
+  @media(max-width:860px){
+    .ab-founder,.ab-split,.ab-board{grid-template-columns:1fr;gap:30px;}
+    .ab-split.rev .ab-imcol{order:0;}
+    .ab-pillars{grid-template-columns:1fr;}
+    .ab-ings{grid-template-columns:1fr 1fr;}
+    .ab-commit .cgrid{grid-template-columns:1fr;}
+    .ab-commit{padding:32px;}
+  }
+  @media(max-width:520px){
+    .ab-ings{grid-template-columns:1fr;}
+    .ab-doc{flex-direction:column;}
+    .ab-doc img{width:100%;height:240px;}
+  }
 
   /* CART */
   .cart-page{padding:40px 0;}
@@ -289,6 +349,8 @@
   .cart-line .cl-info{flex:1;}
   .cart-line .cl-info h3{font-size:17px;}
   .cart-line .cl-info .cl-tone{font-size:13px;color:var(--ink-soft);}
+  .submode{display:inline-block;font-family:'Fredoka';font-weight:600;font-size:11.5px;color:var(--red);background:var(--pink-wash);border-radius:999px;padding:3px 10px;margin-top:5px;}
+  .sum-note{font-size:12.5px;color:var(--ink-soft);background:var(--pink-wash);border-radius:12px;padding:10px 12px;margin-top:6px;line-height:1.5;}
   .qty{display:inline-flex;align-items:center;border:2px solid var(--pink);border-radius:999px;margin-top:8px;overflow:hidden;}
   .qty button{background:none;width:30px;height:30px;font-family:'Fredoka';font-size:17px;color:var(--red);}
   .qty span{width:34px;text-align:center;font-family:'Fredoka';font-weight:600;font-size:14px;}
@@ -406,7 +468,7 @@
     <nav class="nav-links">
       <a href="#/shop">Shop All</a>
       <a href="#/product/strawberry">Find Your Shade</a>
-      <a href="#/story">Our Story</a>
+      <a href="#/story">About Us</a>
     </nav>
     <div class="nav-right">
       <button class="cart-btn" data-open-cart aria-label="Open cart">🛍️<span class="cart-count" id="cc">0</span></button>
@@ -418,7 +480,7 @@
 <div class="mmenu" id="mmenu">
   <a href="#/shop" data-mclose>shop all</a>
   <a href="#/product/strawberry" data-mclose>find your shade</a>
-  <a href="#/story" data-mclose>our story</a>
+  <a href="#/story" data-mclose>about us</a>
   <a href="#/cart" data-mclose>your bag ◡̈</a>
 </div>
 
@@ -563,11 +625,17 @@ try{
 function saveCart(){try{localStorage.setItem('mochi_cart',JSON.stringify(cart));}catch(e){}}
 function cartCount(){return cart.reduce((n,i)=>n+i.qty,0);}
 function cartSubtotal(){return cart.reduce((n,i)=>n+i.price*i.qty,0);}
-function addToCart(id,qty){
+function addToCart(id,qty,mode){
   qty=qty||1;
   const p=PRODUCTS[id];
   const ex=cart.find(i=>i.id===id);
-  if(ex){ex.qty+=qty;} else {cart.push({id:id,name:p.name,tone:p.tone,price:p.price,img:p.img,qty:qty});}
+  if(ex){
+    ex.qty+=qty;
+    if(mode){ex.mode=mode;ex.price=mode==='sub'?+(p.price*0.85).toFixed(2):p.price;}
+  } else {
+    mode=mode||'one';
+    cart.push({id:id,name:p.name,tone:p.tone,price:mode==='sub'?+(p.price*0.85).toFixed(2):p.price,img:p.img,qty:qty,mode:mode});
+  }
   saveCart(); syncCart(); toast(p.name+' added ◡̈'); openCart();
 }
 function setQty(id,q){
@@ -598,6 +666,7 @@ function renderDrawer(){
       <div class="di">
         <h4>${i.name}</h4>
         <div class="dt">${i.tone}</div>
+        ${i.mode==='sub'?'<div class="submode">🔁 refill every 8 weeks · save 15%</div>':''}
         <div class="qty" style="margin-top:6px;">
           <button data-qty="${i.id}|${i.qty-1}">−</button><span>${i.qty}</span><button data-qty="${i.id}|${i.qty+1}">+</button>
         </div>
@@ -662,9 +731,9 @@ function homeView(){
         <p>every tinted lip product makes you pick a side. and the lips that need care most get locked out of colour completely.</p>
       </div>
       <div class="prob-grid">
-        <div class="prob-card"><div class="ic">💄</div><h3>pigment that punishes</h3><p>lipsticks and liquid lips give colour — then dry you out, feather, transfer and flake.</p></div>
-        <div class="prob-card"><div class="ic">🫧</div><h3>care you can’t see</h3><p>true balms look after your lips — but the “tint” is basically a rumour.</p></div>
-        <div class="prob-card"><div class="ic">🥺</div><h3>the lips left out</h3><p>sensitive, chapped, reactive lips? every cute viral product stings or peels.</p></div>
+        <div class="prob-card"><img class="ic-img" src="images/problem-pigment.webp" alt="lips wearing heavy lipstick that has dried out and cracked"><div class="pc-body"><h3>pigment that punishes</h3><p>lipsticks and liquid lips give colour — then dry you out, feather, transfer and flake.</p></div></div>
+        <div class="prob-card"><img class="ic-img" src="images/problem-care.webp" alt="bare lips wearing a clear balm with no visible colour"><div class="pc-body"><h3>care you can’t see</h3><p>true balms look after your lips — but the “tint” is basically a rumour.</p></div></div>
+        <div class="prob-card"><img class="ic-img" src="images/problem-leftout.webp" alt="bare sensitive lips left out of colour entirely"><div class="pc-body"><h3>the lips left out</h3><p>sensitive, chapped, reactive lips? every cute viral product stings or peels.</p></div></div>
       </div>
       <div class="prob-answer">
         <div class="eyebrow" style="color:var(--pink-pale);">the mochi answer</div>
@@ -959,7 +1028,7 @@ function productView(id){
           <div class="opt active" data-opt="one"><div class="dot"></div><div class="lbl">one-time purchase<small>just this, just once</small></div><div class="op">$${p.price}</div></div>
           <div class="opt" data-opt="sub"><div class="dot"></div><div class="lbl">subscribe &amp; save 15%<small>refill every 8 weeks · pause anytime</small></div><div class="op">$${(p.price*0.85).toFixed(2)}</div></div>
         </div>
-        <button class="btn btn-red btn-block btn-lg" data-add="${id}">add to bag — <span id="atcPrice">$${p.price}</span> ◡̈</button>
+        <button class="btn btn-red btn-block btn-lg" data-addpdp="${id}">add to bag — <span id="atcPrice">$${p.price}</span> ◡̈</button>
         <div class="trust">
           <div>◡̈ fragrance-free · menthol-free · camphor-free</div>
           <div>🚚 free shipping over $35 · ships in 1–2 days</div>
@@ -1029,28 +1098,156 @@ function productView(id){
 
 function storyView(){
   return `
-  <div class="wrap">
-    <div class="story-hero">
-      <div class="eyebrow">our story</div>
-      <h1>colour for lips that<br>were told they couldn’t.</h1>
-      <p>mochi began with a small, stubborn idea: a lip product should never make you choose between looking good and feeling good.</p>
+  <section style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="ab-cap">
+        <div class="eyebrow">about mochi</div>
+        <h1>a new philosophy on<br>lip <span class="em">colour</span>. ◡̈</h1>
+        <p>mochi began with a small, stubborn idea: a lip product should never make you choose between looking good and feeling good.</p>
+      </div>
+      <div class="ab-herowrap"><img loading="lazy" decoding="async" src="images/about-hero.webp" alt="Mochi Kiss Balm resting among soft pastel shapes"></div>
     </div>
-    <div class="story-band"><img loading="lazy" decoding="async" src="images/brand-world.webp" alt="The Mochi world"></div>
-    <div class="story-body" style="padding:50px 0;">
-      <h2>the trade nobody questioned</h2>
-      <p>if you’ve ever loved a lipstick that dried you out, or babied your lips with a balm so clear it did nothing — you already know the trade. the lip aisle quietly asks you to pick: colour, or care. never both.</p>
-      <p>and for the millions of people with sensitive, dry, reactive lips, the trade is worse. every cute, viral, must-have lip product on their feed stings, flakes, or makes things worse. fragrance, menthol, camphor, drying long-wear polymers — sold as a treat, delivered as a betrayal. they’d been quietly told colour just wasn’t for them.</p>
-      <p class="pull">we didn’t think that was a small problem. we thought it was the whole problem.</p>
-      <h2>so we built it backwards</h2>
-      <p>most tinted products start with pigment and add a little care at the end. mochi starts the other way around. we built a barrier-repairing lip treatment first — ceramides, squalane, hyaluronic acid, shea and cocoa butter — left out every common irritant, and <i>then</i> tinted it into four buildable, buttery shades.</p>
-      <p>the result is mochi kiss balm: real colour, real care, and a squishy little mochi-shaped tube with a smiling face, because softness should be the first thing you feel. it’s skincare that happens to be the cutest thing in your bag.</p>
-      <h2>who it’s for</h2>
-      <p>mochi is for gen z who want their beauty gentle. for first-time makeup wearers. for the sensitive-lipped, the chronically-chapped, the “everything stings” crowd. for anyone who buys beauty for comfort and joy, not pressure. if that’s you — welcome. this one was built for you. ◡̈</p>
-      <div style="text-align:center;margin-top:30px;">
-        <a href="#/shop" class="btn btn-red btn-lg">shop the shades</a>
+  </section>
+
+  <section style="background:var(--pink-wash);">
+    <div class="wrap">
+      <div class="ab-founder">
+        <img loading="lazy" decoding="async" src="images/about-founder.webp" alt="Hana, founder of Mochi">
+        <div class="ab-note">
+          <div class="eyebrow">a note from our founder</div>
+          <h2>i made mochi for the lips that kept getting left out.</h2>
+          <p>for years i thought i just had “bad lips.” every lipstick i loved left them tight and flaking by lunch. every balm gentle enough to wear all day did nothing — no colour, no confidence, just shine. i quietly believed colour wasn’t really built for lips like mine.</p>
+          <p>so we stopped treating colour and care as a trade-off. mochi is built the other way around — a barrier-repairing lip treatment first, made with ceramides, squalane and hyaluronic acid, then tinted into shades soft enough for the most sensitive lips. nothing that stings. nothing that punishes.</p>
+          <p>i hope mochi becomes the little tube that lives in your pocket, makes you smile every time you see its tiny face, and finally lets your lips have both. ◡̈</p>
+          <div class="ab-sign">— Hana<small>founder, mochi</small></div>
+        </div>
       </div>
     </div>
-  </div>`;
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="ab-split">
+        <div class="ab-imcol"><img loading="lazy" decoding="async" src="images/about-lips.webp" alt="Soft, healthy lips wearing Mochi Kiss Balm"></div>
+        <div>
+          <div class="eyebrow">intentional colour</div>
+          <h2>colour, engineered as skincare.</h2>
+          <p>most tinted lip products start with pigment and add a drop of care right at the end. mochi starts with the care. our kiss balm is a true barrier-repairing treatment that happens to carry buildable, buttery colour.</p>
+          <p>one gentle, fragrance-free formula. four mochi shades. a finish that looks like your lips, only softer — never dry, never heavy, never a compromise.</p>
+          <a href="#/shop" class="btn btn-red" style="margin-top:6px;">shop the shades</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--pink-wash);">
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">the mochi promise</div>
+        <h2>gentle, honest &amp; made on purpose.</h2>
+        <p>everything we make has to pass three tests before it earns the little smiling face.</p>
+      </div>
+      <div class="ab-pillars">
+        <div class="ab-pillar">
+          <div class="pn">01</div>
+          <h3>our values</h3>
+          <p>we build for comfort and joy, not pressure. beauty should feel like a treat your lips actually thank you for — and a product you’re happy to be seen reaching for.</p>
+          <div class="tags"><span>softness</span><span>honesty</span><span>inclusion</span><span>comfort</span><span>joy</span></div>
+        </div>
+        <div class="ab-pillar">
+          <div class="pn">02</div>
+          <h3>rooted in science</h3>
+          <p>our barrier-first formula is developed with dermatologists and cosmetic chemists, then tested on the most sensitive lips — so the care is real, not a claim on the box.</p>
+          <div class="tags"><span>dermatologist-tested</span><span>barrier-repair</span><span>clinically minded</span></div>
+        </div>
+        <div class="ab-pillar">
+          <div class="pn">03</div>
+          <h3>the road ahead</h3>
+          <p>made without common irritants, and made kindly — a short, considered range done properly, for people, animals and the planet alike.</p>
+          <div class="tags"><span>vegan</span><span>cruelty-free</span><span>fragrance-free</span><span>recyclable</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">research-backed ingredients</div>
+        <h2>a short list of things that work.</h2>
+        <p>every shade is the same gentle formula — built from purposeful, high-performance ingredients, and nothing your lips don’t need.</p>
+      </div>
+      <div class="ab-ings">
+        <div class="ab-ing"><img loading="lazy" decoding="async" src="images/ing-ceramides.webp" alt="Ceramides"><div class="ig-b"><h3>ceramides</h3><p>rebuild and reinforce the lip’s natural barrier so moisture stays where it belongs.</p></div></div>
+        <div class="ab-ing"><img loading="lazy" decoding="async" src="images/ing-hyaluronic.webp" alt="Hyaluronic acid"><div class="ig-b"><h3>hyaluronic acid</h3><p>draws in water for hours of plump, cushiony, comfortable hydration.</p></div></div>
+        <div class="ab-ing"><img loading="lazy" decoding="async" src="images/ing-squalane.webp" alt="Squalane"><div class="ig-b"><h3>squalane</h3><p>a featherlight oil that softens and seals — without a trace of heaviness.</p></div></div>
+        <div class="ab-ing"><img loading="lazy" decoding="async" src="images/ing-butters.webp" alt="Shea and cocoa butter"><div class="ig-b"><h3>shea + cocoa butter</h3><p>buttery comfort that gives mochi its pillowy, melt-in glide.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--pink-wash);">
+    <div class="wrap">
+      <div class="sh">
+        <div class="eyebrow">meet the advisory board</div>
+        <h2>the experts behind the formula.</h2>
+        <p>our lip-care advisory board guides mochi from first formula to final squish — so every shade is as safe as it is soft.</p>
+      </div>
+      <div class="ab-board">
+        <div class="ab-doc">
+          <img loading="lazy" decoding="async" src="images/doc-chemist.webp" alt="Dr. Priya Anand, cosmetic chemist">
+          <div class="doc-b">
+            <h3>Dr. Priya Anand</h3>
+            <div class="role">cosmetic chemist</div>
+            <p>with over 20 years formulating for leading beauty brands, Priya leads mochi’s barrier-repair science — pairing efficacious actives with the gentlest possible base.</p>
+          </div>
+        </div>
+        <div class="ab-doc">
+          <img loading="lazy" decoding="async" src="images/doc-derm.webp" alt="Dr. Daniel Hart, consultant dermatologist">
+          <div class="doc-b">
+            <h3>Dr. Daniel Hart</h3>
+            <div class="role">consultant dermatologist</div>
+            <p>a dermatologist focused on sensitive and reactive skin, Daniel pressure-tests every mochi formula against the irritants that make lips sting, flake and react.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="ab-split rev">
+        <div class="ab-imcol"><img loading="lazy" decoding="async" src="images/about-footprint.webp" alt="Mochi's recyclable packaging and minimal footprint"></div>
+        <div>
+          <div class="eyebrow">our minimal footprint</div>
+          <h2>made kindly, all the way down.</h2>
+          <p>from consciously chosen ingredients to recyclable packaging, we keep mochi small, simple and considered — a limited range done properly, instead of endless products done fast.</p>
+          <p>less waste, fewer launches, and a tube designed to be loved for a long time, then given back.</p>
+        </div>
+      </div>
+      <div class="ab-commit">
+        <div class="cgrid">
+          <div class="ci"><div class="ck">🌱</div><div><h4>vegan &amp; cruelty-free</h4><p>never tested on animals — not once, not ever.</p></div></div>
+          <div class="ci"><div class="ck">🚫</div><div><h4>fragrance-free</h4><p>no perfume, menthol or camphor to sting your lips.</p></div></div>
+          <div class="ci"><div class="ck">🧴</div><div><h4>dermatologist-tested</h4><p>checked and approved on sensitive, reactive lips.</p></div></div>
+          <div class="ci"><div class="ck">♻️</div><div><h4>recyclable tube</h4><p>packaging designed to be given back, not binned.</p></div></div>
+          <div class="ci"><div class="ck">💗</div><div><h4>no harsh actives</h4><p>made without drying long-wear polymers and irritants.</p></div></div>
+          <div class="ci"><div class="ck">◡̈</div><div><h4>30-day soft-lips promise</h4><p>love your mochi or your money back — simple as that.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:30px;">
+    <div class="wrap">
+      <div class="ab-cta">
+        <div class="eyebrow" style="color:var(--pink-pale);">colour for lips that were told they couldn’t</div>
+        <h2>your softest era starts with one little tube. ◡̈</h2>
+        <p>four mochi shades. one gentle formula. zero compromise.</p>
+        <a href="#/shop" class="btn btn-pink btn-lg">shop the shades</a>
+      </div>
+    </div>
+  </section>`;
 }
 
 function cartView(){
@@ -1059,7 +1256,8 @@ function cartView(){
   }
   const sub=cartSubtotal();
   const ship=sub>=FREE_SHIP?0:4;
-  const discount=promoApplied?sub*0.1:0;
+  const hasSub=cart.some(i=>i.mode==='sub');
+  const discount=(promoApplied&&!hasSub)?sub*0.1:0;
   const total=sub-discount+ship;
   const left=FREE_SHIP-sub;
   return `
@@ -1073,6 +1271,7 @@ function cartView(){
             <div class="cl-info">
               <h3>${i.name}</h3>
               <div class="cl-tone">${i.tone}</div>
+              ${i.mode==='sub'?'<div class="submode">🔁 refill every 8 weeks · save 15%</div>':''}
               <div class="qty"><button data-qty="${i.id}|${i.qty-1}">−</button><span>${i.qty}</span><button data-qty="${i.id}|${i.qty+1}">+</button></div>
             </div>
             <div class="cl-right">
@@ -1093,10 +1292,11 @@ function cartView(){
       <div>
         <div class="summary">
           <h3>order summary</h3>
-          ${cart.map(i=>`<div class="sum-row"><span>${i.name} ×${i.qty}</span><span>${money(i.price*i.qty)}</span></div>`).join('')}
+          ${cart.map(i=>`<div class="sum-row"><span>${i.name} ×${i.qty}${i.mode==='sub'?' 🔁':''}</span><span>${money(i.price*i.qty)}</span></div>`).join('')}
           <div class="sum-row"><span>subtotal</span><span>${money(sub)}</span></div>
           <div class="sum-row"><span>shipping</span><span>${ship===0?'free 🎉':money(ship)}</span></div>
           ${discount>0?`<div class="sum-row" style="color:var(--red);font-weight:700;"><span>welcome discount (10%) ◡̈</span><span>−${money(discount)}</span></div>`:''}
+          ${hasSub?`<div class="sum-note">🔁 subscription items renew every 8 weeks at the 15%-off price. pause or cancel anytime — no fuss.</div>`:''}
           ${left>0?`<div class="ship-bar">add <b>${money(left)}</b> for free shipping<div class="track"><div class="fill" style="width:${Math.min(100,sub/FREE_SHIP*100)}%"></div></div></div>`:''}
           <div class="sum-row total"><span>total</span><span>${money(total)}</span></div>
           <button class="btn btn-red btn-block btn-lg" style="margin-top:16px;" data-checkout>proceed to checkout →</button>
@@ -1199,7 +1399,13 @@ document.addEventListener('click',e=>{
   if(cl){location.hash=cl.getAttribute('data-go');return;}
   if(t.closest('[data-open-cart]')){openCart();return;}
   if(t.closest('[data-close-cart]')){closeCart();return;}
-  if(t.closest('[data-add]')){addToCart(t.closest('[data-add]').getAttribute('data-add'),1);return;}
+  if(t.closest('[data-addpdp]')){
+    const id=t.closest('[data-addpdp]').getAttribute('data-addpdp');
+    const o=document.querySelector('[data-opt].active');
+    addToCart(id,1,o?o.getAttribute('data-opt'):'one');
+    return;
+  }
+  if(t.closest('[data-add]')){addToCart(t.closest('[data-add]').getAttribute('data-add'),1,'one');return;}
   if(t.closest('[data-remove]')){removeItem(t.closest('[data-remove]').getAttribute('data-remove'));return;}
   if(t.closest('[data-qty]')){const v=t.closest('[data-qty]').getAttribute('data-qty').split('|');setQty(v[0],parseInt(v[1]));return;}
   if(t.closest('[data-gal]')){
@@ -1250,7 +1456,7 @@ document.addEventListener('click',e=>{
     btn.style.pointerEvents='none';
     fetch('/api/create-checkout',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({cart:cart.map(function(i){return {id:i.id,qty:i.qty};}),promo:promoApplied})
+      body:JSON.stringify({cart:cart.map(function(i){return {id:i.id,qty:i.qty,mode:i.mode};}),promo:promoApplied})
     })
     .then(function(r){return r.ok?r.json():Promise.reject(r);})
     .then(function(d){

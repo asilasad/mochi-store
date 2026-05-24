@@ -30,6 +30,8 @@ const CATALOG = {
 const FREE_SHIP_CENTS = 3500; // free shipping at $35+
 const SHIP_FEE_CENTS  = 400;  // $4 flat below that
 const WELCOME_COUPON  = 'N4gqi492'; // 10% welcome coupon (promo code SQUISH10)
+const SUB_DISCOUNT    = 0.15; // subscribe & save — 15% off
+const SUB_INTERVAL    = { interval: 'week', interval_count: 8 }; // refill every 8 weeks
 
 /* ============================================================
    Order-confirmation email — sent via Resend (https://resend.com).
@@ -177,21 +179,24 @@ app.post('/api/create-checkout', async (req, res) => {
     if (!cart.length) return res.status(400).json({ error: 'Your bag is empty.' });
 
     let subtotal = 0;
+    let hasSub = false;
     const line_items = [];
     for (const item of cart) {
       const product = CATALOG[item && item.id];
       if (!product) continue;
       let qty = parseInt(item && item.qty, 10) || 1;
       qty = Math.max(1, Math.min(qty, 20));
-      subtotal += product.price * qty;
-      line_items.push({
-        quantity: qty,
-        price_data: {
-          currency: 'usd',
-          unit_amount: product.price,
-          product_data: { name: product.name }
-        }
-      });
+      const isSub = !!(item && item.mode === 'sub');
+      if (isSub) hasSub = true;
+      const unit = isSub ? Math.round(product.price * (1 - SUB_DISCOUNT)) : product.price;
+      subtotal += unit * qty;
+      const price_data = {
+        currency: 'usd',
+        unit_amount: unit,
+        product_data: { name: product.name + (isSub ? ' — refill subscription' : '') }
+      };
+      if (isSub) price_data.recurring = SUB_INTERVAL; // real recurring price: billed every 8 weeks
+      line_items.push({ quantity: qty, price_data });
     }
     if (!line_items.length) return res.status(400).json({ error: 'No valid items in cart.' });
 
@@ -201,7 +206,7 @@ app.post('/api/create-checkout', async (req, res) => {
     const shipFee = subtotal >= FREE_SHIP_CENTS ? 0 : SHIP_FEE_CENTS;
 
     const sessionParams = {
-      mode: 'payment',
+      mode: hasSub ? 'subscription' : 'payment',
       line_items,
       billing_address_collection: 'auto',
       shipping_address_collection: { allowed_countries: ['US', 'CA', 'GB', 'AU'] },
@@ -219,7 +224,11 @@ app.post('/api/create-checkout', async (req, res) => {
       success_url: base + '/?checkout=success&session_id={CHECKOUT_SESSION_ID}#/confirmed',
       cancel_url:  base + '/#/cart'
     };
-    if (req.body && req.body.promo) {
+    if (hasSub) {
+      // Subscription checkout: let the customer type a code; the welcome
+      // coupon is a one-time first-order offer and isn't auto-stacked here.
+      sessionParams.allow_promotion_codes = true;
+    } else if (req.body && req.body.promo) {
       sessionParams.discounts = [{ coupon: WELCOME_COUPON }]; // welcome 10% auto-applied via the email link
     } else {
       sessionParams.allow_promotion_codes = true;             // otherwise the customer can type a code
@@ -241,7 +250,7 @@ app.get('/api/order', async (req, res) => {
   try {
     const stripe = Stripe(key);
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ['line_items', 'payment_intent.latest_charge']
+      expand: ['line_items', 'payment_intent.latest_charge', 'invoice']
     });
     const items = ((session.line_items && session.line_items.data) || []).map(li => ({
       name: li.description, qty: li.quantity, amount: li.amount_total
@@ -249,6 +258,7 @@ app.get('/api/order', async (req, res) => {
     let receiptUrl = null;
     const pi = session.payment_intent;
     if (pi && pi.latest_charge && pi.latest_charge.receipt_url) receiptUrl = pi.latest_charge.receipt_url;
+    else if (session.invoice && session.invoice.hosted_invoice_url) receiptUrl = session.invoice.hosted_invoice_url;
     const order = {
       id: session.id,
       paid: session.payment_status === 'paid',
