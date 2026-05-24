@@ -555,6 +555,11 @@ const SHADE_IDS=['strawberry','mango','taro','peach'];
 /* ============ CART ============ */
 let cart=[];
 try{const s=localStorage.getItem('mochi_cart'); if(s) cart=JSON.parse(s);}catch(e){}
+let promoApplied=false;
+try{
+  if(location.search.indexOf('promo=')>-1){promoApplied=true;localStorage.setItem('mochi_promo','1');}
+  else if(localStorage.getItem('mochi_promo')==='1'){promoApplied=true;}
+}catch(e){if(location.search.indexOf('promo=')>-1)promoApplied=true;}
 function saveCart(){try{localStorage.setItem('mochi_cart',JSON.stringify(cart));}catch(e){}}
 function cartCount(){return cart.reduce((n,i)=>n+i.qty,0);}
 function cartSubtotal(){return cart.reduce((n,i)=>n+i.price*i.qty,0);}
@@ -1054,7 +1059,8 @@ function cartView(){
   }
   const sub=cartSubtotal();
   const ship=sub>=FREE_SHIP?0:4;
-  const total=sub+ship;
+  const discount=promoApplied?sub*0.1:0;
+  const total=sub-discount+ship;
   const left=FREE_SHIP-sub;
   return `
   <div class="wrap cart-page">
@@ -1090,6 +1096,7 @@ function cartView(){
           ${cart.map(i=>`<div class="sum-row"><span>${i.name} ×${i.qty}</span><span>${money(i.price*i.qty)}</span></div>`).join('')}
           <div class="sum-row"><span>subtotal</span><span>${money(sub)}</span></div>
           <div class="sum-row"><span>shipping</span><span>${ship===0?'free 🎉':money(ship)}</span></div>
+          ${discount>0?`<div class="sum-row" style="color:var(--red);font-weight:700;"><span>welcome discount (10%) ◡̈</span><span>−${money(discount)}</span></div>`:''}
           ${left>0?`<div class="ship-bar">add <b>${money(left)}</b> for free shipping<div class="track"><div class="fill" style="width:${Math.min(100,sub/FREE_SHIP*100)}%"></div></div></div>`:''}
           <div class="sum-row total"><span>total</span><span>${money(total)}</span></div>
           <button class="btn btn-red btn-block btn-lg" style="margin-top:16px;" data-checkout>proceed to checkout →</button>
@@ -1243,7 +1250,7 @@ document.addEventListener('click',e=>{
     btn.style.pointerEvents='none';
     fetch('/api/create-checkout',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({cart:cart.map(function(i){return {id:i.id,qty:i.qty};})})
+      body:JSON.stringify({cart:cart.map(function(i){return {id:i.id,qty:i.qty};}),promo:promoApplied})
     })
     .then(function(r){return r.ok?r.json():Promise.reject(r);})
     .then(function(d){

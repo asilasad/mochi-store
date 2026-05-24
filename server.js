@@ -29,6 +29,7 @@ const CATALOG = {
 };
 const FREE_SHIP_CENTS = 3500; // free shipping at $35+
 const SHIP_FEE_CENTS  = 400;  // $4 flat below that
+const WELCOME_COUPON  = 'N4gqi492'; // 10% welcome coupon (promo code SQUISH10)
 
 /* ============================================================
    Order-confirmation email — sent via Resend (https://resend.com).
@@ -124,7 +125,7 @@ function welcomeEmail(baseUrl) {
 '<p style="margin:0;font-size:25px;letter-spacing:3px;color:#43303A;font-weight:bold;font-family:Courier New,monospace;">SQUISH10</p>' +
 '</td></tr></table>' +
 '<table cellpadding="0" cellspacing="0" style="margin:24px auto 6px;"><tr><td style="border-radius:999px;background:#E0455A;">' +
-'<a href="' + baseUrl + '" style="display:inline-block;padding:14px 36px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">shop the shades</a>' +
+'<a href="' + baseUrl + '/?promo=SQUISH10" style="display:inline-block;padding:14px 36px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">shop the shades — 10% applied</a>' +
 '</td></tr></table>' +
 '<p style="margin:18px 0 0;font-size:14px;color:#7C6670;line-height:1.6;text-align:center;font-style:italic;">soft on lips. serious about them.</p>' +
 '</td></tr>' +
@@ -199,10 +200,9 @@ app.post('/api/create-checkout', async (req, res) => {
     const base = (host || '').split('#')[0].replace(/\/$/, '') || 'https://example.com';
     const shipFee = subtotal >= FREE_SHIP_CENTS ? 0 : SHIP_FEE_CENTS;
 
-    const session = await stripe.checkout.sessions.create({
+    const sessionParams = {
       mode: 'payment',
       line_items,
-      allow_promotion_codes: true,
       billing_address_collection: 'auto',
       shipping_address_collection: { allowed_countries: ['US', 'CA', 'GB', 'AU'] },
       shipping_options: [{
@@ -218,7 +218,13 @@ app.post('/api/create-checkout', async (req, res) => {
       }],
       success_url: base + '/?checkout=success&session_id={CHECKOUT_SESSION_ID}#/confirmed',
       cancel_url:  base + '/#/cart'
-    });
+    };
+    if (req.body && req.body.promo) {
+      sessionParams.discounts = [{ coupon: WELCOME_COUPON }]; // welcome 10% auto-applied via the email link
+    } else {
+      sessionParams.allow_promotion_codes = true;             // otherwise the customer can type a code
+    }
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     res.json({ url: session.url });
   } catch (err) {
