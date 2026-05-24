@@ -101,6 +101,70 @@ function sendConfirmationEmail(order, baseUrl) {
 }
 
 /* ---- Stripe checkout endpoint ---- */
+/* ---- welcome email (newsletter signup, includes the 10% code) ---- */
+const subscribedEmails = new Set();
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+function welcomeEmail(baseUrl) {
+  const html =
+'<!DOCTYPE html><html><body style="margin:0;padding:0;background:#FCF7F0;">' +
+'<table width="100%" cellpadding="0" cellspacing="0" style="background:#FCF7F0;padding:24px 0;"><tr><td align="center">' +
+'<table width="540" cellpadding="0" cellspacing="0" style="max-width:540px;width:100%;background:#ffffff;border-radius:22px;overflow:hidden;">' +
+'<tr><td><img src="' + baseUrl + '/images/email-welcome.jpg" width="540" alt="Mochi" style="display:block;width:100%;height:auto;border:0;"></td></tr>' +
+'<tr><td style="padding:32px 36px;font-family:Arial,Helvetica,sans-serif;">' +
+'<h1 style="margin:0 0 8px;font-size:27px;color:#E0455A;">welcome to the squish</h1>' +
+'<p style="margin:0 0 16px;font-size:15px;color:#7C6670;line-height:1.65;">hi there, and welcome to mochi &mdash; we are so happy you are here.</p>' +
+'<p style="margin:0 0 16px;font-size:15px;color:#43303A;line-height:1.65;">we make one thing, and we make it the best in the world: a tinted lip balm that is genuinely good <i>for</i> your lips.</p>' +
+'<p style="margin:0 0 16px;font-size:15px;color:#7C6670;line-height:1.65;">most lip products make you choose &mdash; pretty colour that dries you out, or real care that is basically clear. and if your lips are sensitive, every cute viral product seems to sting or flake. we thought that was a problem worth solving.</p>' +
+'<p style="margin:0 0 22px;font-size:15px;color:#7C6670;line-height:1.65;">so we built <b style="color:#43303A;">Mochi Kiss Balm</b> the other way around: barrier-repairing skincare first &mdash; ceramides, hyaluronic acid, fragrance-free, dermatologist-tested &mdash; then tinted into four buttery, buildable shades. colour and comfort, no compromise. a little hug for your lips.</p>' +
+'<table width="100%" cellpadding="0" cellspacing="0" style="background:#FBEEF1;border-radius:16px;"><tr><td style="padding:22px 24px;text-align:center;">' +
+'<p style="margin:0 0 6px;font-size:12px;letter-spacing:1.5px;color:#7C6670;font-weight:bold;">YOUR WELCOME GIFT</p>' +
+'<p style="margin:0 0 10px;font-size:22px;color:#E0455A;font-weight:bold;">10% off your first kiss</p>' +
+'<p style="margin:0 0 6px;font-size:13px;color:#7C6670;">enter this code at checkout</p>' +
+'<p style="margin:0;font-size:25px;letter-spacing:3px;color:#43303A;font-weight:bold;font-family:Courier New,monospace;">SQUISH10</p>' +
+'</td></tr></table>' +
+'<table cellpadding="0" cellspacing="0" style="margin:24px auto 6px;"><tr><td style="border-radius:999px;background:#E0455A;">' +
+'<a href="' + baseUrl + '" style="display:inline-block;padding:14px 36px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">shop the shades</a>' +
+'</td></tr></table>' +
+'<p style="margin:18px 0 0;font-size:14px;color:#7C6670;line-height:1.6;text-align:center;font-style:italic;">soft on lips. serious about them.</p>' +
+'</td></tr>' +
+'<tr><td style="padding:22px 36px;background:#FCF7F0;font-family:Arial,sans-serif;text-align:center;">' +
+'<p style="margin:0 0 4px;font-size:18px;color:#E0455A;font-weight:bold;">mochi</p>' +
+'<p style="margin:0;font-size:12px;color:#7C6670;line-height:1.7;">the tinted lip balm that loves your lips back<br>questions? just reply to this email &middot; hellosquishy@mochilipstick.com</p>' +
+'</td></tr></table></td></tr></table></body></html>';
+  return { subject: 'welcome to mochi — here is 10% off your first kiss', html: html };
+}
+
+function sendWelcomeEmail(email, baseUrl) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return;
+  const e = String(email || '').trim().toLowerCase();
+  if (!EMAIL_RE.test(e)) return;
+  if (subscribedEmails.has(e)) return;
+  subscribedEmails.add(e);
+  const msg = welcomeEmail(baseUrl);
+  fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: process.env.MAIL_FROM || 'Mochi <hellosquishy@mochilipstick.com>',
+      to: [e],
+      subject: msg.subject,
+      html: msg.html
+    })
+  }).then(function (r) {
+    if (r.ok) {
+      console.log('welcome email sent to ' + e);
+    } else {
+      subscribedEmails.delete(e);
+      r.text().then(function (t) { console.error('welcome email error:', t); });
+    }
+  }).catch(function (err) {
+    subscribedEmails.delete(e);
+    console.error('welcome email failed:', err && err.message);
+  });
+}
+
 app.post('/api/create-checkout', async (req, res) => {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
@@ -200,6 +264,17 @@ app.get('/api/order', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: (err && err.message) || 'Could not load order' });
   }
+});
+
+/* ---- newsletter signup -> welcome email with the 10% code ---- */
+app.post('/api/subscribe', (req, res) => {
+  const email = req.body && req.body.email;
+  if (!email || !EMAIL_RE.test(String(email).trim())) {
+    return res.status(400).json({ error: 'Please enter a valid email.' });
+  }
+  const base = (req.headers.origin || ('https://' + req.headers.host)).replace(/\/$/, '');
+  sendWelcomeEmail(email, base);
+  res.json({ ok: true });
 });
 
 /* ---- serve the website ---- */

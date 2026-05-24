@@ -1262,7 +1262,16 @@ document.addEventListener('click',e=>{
   if(t.closest('[data-mclose]')){document.getElementById('mmenu').classList.remove('open');return;}
 });
 document.addEventListener('submit',e=>{
-  if(e.target.closest('[data-news]')){e.preventDefault();e.target.reset();toast('welcome to the squish ◡̈ check your inbox');}
+  if(e.target.closest('[data-news]')){
+    e.preventDefault();
+    const form=e.target.closest('[data-news]');
+    const input=form.querySelector('input[type=email]');
+    const email=input?input.value.trim():'';
+    if(!email){toast('please enter your email ◡̈');return;}
+    form.reset();
+    toast('welcome to the squish ◡̈ check your inbox');
+    fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})}).catch(function(){});
+  }
 });
 
 /* ============ ANNOUNCEMENT ============ */
